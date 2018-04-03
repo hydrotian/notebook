@@ -54,7 +54,8 @@ $ git checkout    # something like "git checkout 911e8c9"
 ssh-keygen -t rsa -C "your_email@example.com"
 ```
 - Open `id_rsa.pub`, copy everything and paste it into GitHub and/or BitBucket under the Account Settings, SSH Keys
-#### From old UW post 
+
+## From old UW post 
 A great source: https://githowto.com/
 
 ###### 1) On local machine, create an empty git repo in the working directory (e.g. project/) and set default setting:
