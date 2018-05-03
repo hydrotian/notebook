@@ -23,11 +23,9 @@ Now I have migrated my notebook from Wordpress to Github page. Markdown is brill
 
 ### table
 |First Header[^1] | Second Header|
-|------------ | -------------|
+|--- | ---|
 |Content from cell 1 | Content from cell 2|
 |Content in the first column | Content in the second column|
-{: .tablelines}
-
 ### styling
 ~~this~~
 **this**
