@@ -23,17 +23,18 @@ tags: Null
   - My [second blog](http://tianzhou.org/notebook/) on Github
 
 ## How to build a blog site on Github
-- [Github pages](https://pages.github.com/)
+- ###[Github pages](https://pages.github.com/)
   - Free host
   - Static website
   - One site per Github account named **username.github.io** ([example1](http://uw-hydro.github.io/))
   - Allows to use your own domain name purchased from [GoDaddy](https://godaddy.com) or [Namecheap](http://namecheap.com) ([example2](http://tianzhou.org)) 
-- [Jekyll](https://jekyllrb.com/)
+- ###[Jekyll](https://jekyllrb.com/)
   - Simple and lightweight
   - Lots of [FREE themes](http://jekyllthemes.org/) to choose from
   - My choice: "[So simple theme](https://mmistakes.github.io/so-simple-theme/)"
   - [Tools](http://import.jekyllrb.com/) to migrate your old blog 
-  - [Write the blog](https://github.com/hydrotian/notebook)
+  - [Write your blog](https://github.com/hydrotian/notebook)
+  - [Markdown](http://tianzhou.org/notebook/other/2018/03/23/Markdown-examples.html) style
 
 
 

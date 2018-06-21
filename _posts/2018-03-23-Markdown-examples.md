@@ -6,11 +6,6 @@ author: Tian
 comments: true
 categories: [Other]
 ---
-<style>
-.tablelines table, .tablelines td, .tablelines th {
-        border: 1px solid black;
-        }
-</style>
 
 Now I have migrated my notebook from Wordpress to Github page. Markdown is brilliant! Here are some examples for future use.
 
@@ -19,12 +14,11 @@ Now I have migrated my notebook from Wordpress to Github page. Markdown is brill
 ### checklist
 - [x] [links](), **formatting** supported
 - [x] this is a complete item
-- [ ] this is an incomplete item
+- [ ] this is an incomplete item[^1]
 
 ### table
-|First Header[^1] | Second Header|
+|First Header | Second Header|
 | --- | --- |
-|Content from cell 1 | Content from cell 2|
 |Content in the first column | Content in the second column|
 ### styling
 ~~this~~
