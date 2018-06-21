@@ -33,14 +33,14 @@ _this_
 **_this_**
 
 ### numbering
-1. Firstthing
+1. First thing
    - this
      - that
        - then
      - ab
    - cd
 
-2. ok
+2. Second thing
 
 ### quoting
 > Pardon
@@ -57,7 +57,7 @@ modir = 'Y:\Tian\CMIP5_BCSD_runoffs\';
 ![example image](http://tianzhounote.files.wordpress.com/2013/10/untitled.png)
 
 ### video
-[![Redsquare Live](https://img.youtube.com/vi/i2i__rJxvO4/0.jpg)](https://www.youtube.com/watch?v=i2i__rJxvO4)
+[![Redsquare Live](https://img.youtube.com/vi/RtU_mdL2vBM/0.jpg)](https://www.youtube.com/watch?v=RtU_mdL2vBM)
 
 [^1]: test note
 
