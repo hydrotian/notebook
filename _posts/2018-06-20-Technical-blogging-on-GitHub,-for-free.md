@@ -17,18 +17,18 @@ tags: Null
 ## Technical blogging
 - Share your knowledge
 - For fun
-- Make money
+- ~~Make money~~
 - **A place to store technical details for my research**
   - My [first blog](https://tianzhounote.wordpress.com/) on wordpress
   - My [second blog](http://tianzhou.org/notebook/) on Github
 
 ## How to build a blog site on Github
-- ###[Github pages](https://pages.github.com/)
+- [Github pages](https://pages.github.com/)
   - Free host
   - Static website
   - One site per Github account named **username.github.io** ([example1](http://uw-hydro.github.io/))
   - Allows to use your own domain name purchased from [GoDaddy](https://godaddy.com) or [Namecheap](http://namecheap.com) ([example2](http://tianzhou.org)) 
-- ###[Jekyll](https://jekyllrb.com/)
+- [Jekyll](https://jekyllrb.com/)
   - Simple and lightweight
   - Lots of [FREE themes](http://jekyllthemes.org/) to choose from
   - My choice: "[So simple theme](https://mmistakes.github.io/so-simple-theme/)"
