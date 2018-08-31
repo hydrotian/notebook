@@ -10,7 +10,7 @@ tags: Null
 Today I saw a great [blog](http://kellyakearney.net/2015/12/18/cptcmap.html) that use GMT's color setup file (.cpt) in Matlab
 
 - First download the cptcmap.m and then link it to Matlab.
-- Second put the .cpt files into a folder which is also linked to Matlab. The .cpt files can be find in [cpt-city](http://soliton.vm.bytemark.co.uk/pub/cpt-city/)
+- Second put the .cpt files into a folder which is also linked to Matlab. The .cpt files can be found in [cpt-city](http://soliton.vm.bytemark.co.uk/pub/cpt-city/)
 - Then in Matlab use cptcmap to override the Matlab color scheme.
 ```matlab
 cptcmap('GMT_globe', 'mapping', 'direct');

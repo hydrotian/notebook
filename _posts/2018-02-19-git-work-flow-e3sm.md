@@ -11,7 +11,7 @@ tags: E3SM
 #### 1) Fork a branch to my own repo on Github
 #### 2) Clone a branch from my own repository with submodules
 ```bash
-$ git --recursive -b branch/name/here https://username:password@github.com/hydrotian/ACME.git
+$ git clone --recursive -b branch/name/here https://username:password@github.com/hydrotian/ACME.git
 ```
 #### 3) Make changes to the code, add them,and commit
 ```bash
