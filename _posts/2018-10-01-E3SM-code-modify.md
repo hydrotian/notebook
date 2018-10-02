@@ -1,10 +1,10 @@
 ---
 layout: post
-title: E3SM setups
+title: E3SM code modification
 date: 2018-10-01 15:19
 author: Tian
 comments: true
-categories: [Git, Programming, E3SM]
+categories: [Programming, E3SM]
 tags: E3SM
 ---
 This post is just a reference for myself about how did I modify the E3SM 2-way coupling source code.
