@@ -6,6 +6,8 @@ author: hydrotian
 comments: true
 categories: [Matlab, Plotting]
 ---
+Matlab has a number of built-in color schemes. You can get the RGB values for these colors.
+
 <img class="alignnone size-full wp-image-1130" src="https://tianzhounote.files.wordpress.com/2016/06/capture2.png" alt="Capture" width="329" height="419" />
 
 to get RGB values for default Matlab color order, use

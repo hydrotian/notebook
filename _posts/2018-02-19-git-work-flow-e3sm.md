@@ -4,10 +4,13 @@ title: Git work flow E3SM
 date: 2018-02-19 15:19
 author: hydrotian
 comments: true
-categories: [Git, Programming]
+categories: [Git, Programming, E3SM]
 tags: E3SM
 ---
+This is an instruction about how to clone the E3SM model from Github and how to create a case.
+
 ## Run E3SM
+
 #### 1) Fork a branch to my own repo on Github
 #### 2) Clone a branch from my own repository with submodules
 ```bash
