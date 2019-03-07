@@ -1,6 +1,6 @@
 ---
 layout: post
-title: E3SM code modification
+title: ELM code modification
 date: 2018-10-01 15:19
 author: Tian
 comments: true
@@ -15,9 +15,9 @@ This post is just a reference for myself about how did I modify the E3SM 2-way c
 
 2. `pgwgt(p)`: area weight of current pft to current grid.
 
-3. `irrig_rate(p)`: The name of the variable is pretty much self-described. It is the irrigation rate needed to fullfil the water deficit in the soil layers. It's calculated in `CanopyFluxesMod.F90` as the `deficit` (irrigation demand) for each day divided by the total seconds of each irrigation time period.
+3. `irrig_rate(p)`: the name of the variable is pretty much self-described. It is the irrigation rate (mm/s) needed to fulfill the water deficit in the soil layers. It's calculated in `CanopyFluxesMod.F90` as the `deficit` (irrigation demand) for each day divided by the total seconds of the irrigation time period.
 
-4. `qflx_irrig(p)`: Equal to `irrig_rate(p)`during the irrigation period. Outside of this period, it's zero.
+4. `qflx_irrig(p)`: equal to `irrig_rate(p)`during the irrigation period (mm/s). Outside of this period, it's zero.
 
 5. `qflx_real_irrig(p)`: Actual irrigation rate. In one-way coupling, it's always been met and equal to `qflx_irrig(p)`. In two-way coupling, it's the sum of surface water irrigation plus groundwater irrigation.  If the sum is greater than `qflx_irrig(p)`, the exceeded part will go to `qflx_over_supply(p)`.
 
