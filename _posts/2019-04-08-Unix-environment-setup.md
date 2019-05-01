@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Unix environment setup
+title: NERSC environment setup
 date: 2019-04-08 15:19
 author: Tian
 comments: true
@@ -11,7 +11,7 @@ Recently I have been working on [NERSC](https://www.nersc.gov/) quite a lot. One
 
 To fix this, I modified the `.bashrc.ext` file in the home directory (The system doesn't allow you to change the `.bashrc` file).
 
-I added three lines at the bottom of this file:
+## Three lines added at the bottom of this file
 
 ##### let the ls showing the color scheme automatically
 ```bash
@@ -27,3 +27,12 @@ export PS1="\[$(ppwd)\]\u@\h:\W>"
 ```bash
 module load python cray-netcdf
 ```
+## Some paths on NERSC
+```bash
+/global/cscratch1/sd/tizhou # cscratch
+/global/project/projectdirs/acme/tizhou # project dir (E3SM)
+/global/project/projectdirs/m2422/tizhou # project dir (Maoyi, Pflotran)
+/global/project/projectdirs/acme/www/tizhou # public directory
+/scratch1/scratchdirs/tizhou # edison scratch, retire soon
+```
+The public directory will be available [here](https://portal.nersc.gov/project/acme/tizhou/)
