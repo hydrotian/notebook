@@ -60,3 +60,11 @@ This following command create a `git hist` aliases to check the commit history
 find the hash of the target commit by checking the commit history, then
 `$ git checkout    # something like "git checkout 911e8c9"`
 
+- Revert the commit that already pushed to remote
+1. make sure you are on the branch head
+2. move the head one step backward
+`$ git reset --hard HEAD~1`
+3. do some modifications and commit
+4. push the new commit to the origin
+`$ git push origin --force`
+
