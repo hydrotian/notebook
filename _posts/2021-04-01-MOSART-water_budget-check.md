@@ -9,7 +9,7 @@ tags: Null
 ---
 ## Introduction
 
-In current E3SM versions (V1 and V2), the river component, MOSART, only does the internal water balance check to make sure`input - output = delta storage` at every coupling time step (3hr). It does not average the water budget terms on monthly or annual basis in the log files. This makes it difficult to do water balance check between the river component and the coupler, in which the water budgets from each model component are summarized at monthly time scale in the log file like this:
+In current E3SM versions (V1 and V2), the river component, MOSART, only does the internal water balance check to make sure`input - output = delta storage` at every coupling time step (3 hourly). It does not average the water budget terms on monthly or annual basis in the log files. This makes it difficult to do water balance check between the river component and the coupler, in which the water budgets from each model component are summarized at monthly time scale in the log file like this:
 
 ```fortran
 (seq_diag_print_mct) NET WATER BUDGET (kg/m2s*1e6): period =  monthly: date =  19800201     0
@@ -48,9 +48,9 @@ Before we introduce the monthly budget table into MOSART, there's a `quick and d
 
   `volume change - input + output - other = 0`
 
-  where `volume change` is the volume change in river channel, hillslope, reservoirs during the period; `other` is a lag volume term of the channel outflow caused by the MOSART subcycling scheme which should also be accounted for the volume change. To compare with the monthly water budget term in the coupler, we need to find out the **initial volume** and the **final volume** of the month, as well as the **total "other volume"** over the month.
+  where `volume change` is the water volume change in river channels, hillslopes, floodplains, and reservoirs during the period; `other` is a lag volume term of the channel outflow caused by the MOSART subcycling scheme which should also be accounted for the total volume change during the period. To calculate the monthly water budget and to compare it with the budget in the coupler, we need to find out the **initial volume** and the **final volume** of the month, as well as the **total "other volume"** over the month from the MOSART log file.
 
-- The water budget for the very first time step in the log file is like this (note that the water budget of the first time step is at 10800 second (3 hrs) of the first day of the first month):
+- The water budget for the very first time step in the log file is like this (note that the water budget of the first time step is at 10800 second (3 hr) of the first day of the first month):
 ```fortran
   (Rtmrun) MOSART BUDGET diagnostics (million m3) for   19800101 10800
   (Rtmrun)-----------------------------------------------------------------
@@ -95,13 +95,14 @@ Before we introduce the monthly budget table into MOSART, there's a `quick and d
 (Rtmrun) x storage  init =    1              0.000000
 (Rtmrun) x storage final =    1              0.000000
 (Rtmrun)----------------
+...
 ```
 - From the two tables we can see the **initial volume is 0** and the **final volume is 491655.966962** (million m3) for the first month.
 
 -  The "other volume" term is written at each time step, we can extract it from the log file using 
   `grep 'sum other     =    1' rof.log.XXXXXX > other.txt`
 
-- We will get a text file that lists the "other volume" at each time step like this:
+- We will get a text file that lists the "other volume" at each time step:
  ```fortran
 (Rtmrun)   sum other     =    1              0.000000
 (Rtmrun)   sum other     =    1             -0.000000
@@ -114,15 +115,22 @@ Before we introduce the monthly budget table into MOSART, there's a `quick and d
 (Rtmrun)   sum other     =    1             -0.012761
 (Rtmrun)   sum other     =    1             -0.019006
 (Rtmrun)   sum other     =    1             -0.027986
+...
+...
  ```
-- Then there's a tricky step. We need to sum the "other volume" over the time period we are examining. For example, if we are examining the first month, which is also January, then we need to sum the first 8*31 = 248 values to get the total "other volume" for this month.  In this case, the **total "other volume" is -2023.689434** (million m3).
+- Then there's a tricky step. We need to sum the "other volume" over the time period we are examining. For example, if we are examining the first month, which is  January (31 days), then we need to sum the first 8*31 = 248 values to get the total "other volume" for this month.  In this case, the **total "other volume"** over the first month is **-2023.689434** (million m3).
 
 ### 5. Calculate the monthly water budget from MOSART component
-- Now we can convert the values to monthly water budget using the equation below. To be consistent with the budget table, the unit will be kg/m2s*1e6:
+- Now we can convert the values to monthly water budget using the values from the steps above. To be consistent with the budget table, the unit of water budget will be converted to kg/m2s*1e6:
 
 ```matlab
 R = 6.37122e6; % earth radius (m)
 area = 4*pi()*R^2; % earth surface area (m2)
+rof_beginS = 0 % initial volume (million m3)
+rof_endS = 491655.966962 % final volume (million m3)
+sum_other = -2023.689434 % total other volume (million m3)
+days = 31 
+
 budget = (rof_endS - rof_beginS - sum_other)/area/(days*24*3600)*1e15; % kg/m2s*1e6
 ```
 
@@ -130,6 +138,6 @@ budget = (rof_endS - rof_beginS - sum_other)/area/(days*24*3600)*1e15; % kg/m2s*
 
 ### 6. Compare it with the value from the coupler budget table
 
-From the coupler budget table of the same month (the one showed in the introduction section), the value is  **0.36133891**, equals to the value calculated from the MOSART component. The check passed!
+From the coupler budget table of the same month (the one showed in the introduction section), the value is  **0.36133891**, equals to the value calculated from the MOSART component. The check is passed!
 
 
