@@ -11,20 +11,18 @@ tags: Null
 
 In current E3SM versions (V1 and V2), the river component, MOSART, only does the internal water balance check to make sure`input - output = delta storage` at every coupling time step (3hr). It does not average the water budget terms on monthly or annual basis in the log files. This makes it difficult to do water balance check between the river component and the coupler, in which the water budgets from each model component are summarized at monthly time scale in the log file like this:
 
-`(seq_diag_print_mct) NET WATER BUDGET (kg/m2s*1e6): period =  monthly: date =  19800201     0`
-
-|         | atm          | lnd         | rof         | ocn        | ice nh     | ice sh     | glc        | *SUM*        |
-|---------|--------------|-------------|-------------|------------|------------|------------|------------|--------------|
-| wfreeze | 0.00000000   | 0.00000000  | 0.00000000 | 0.00000000 | 0.00000000 | 0.00000000 | 0.00000000 | 0.00000000   |
-| wmelt   | 0.00000000   | 0.00000000  | 0.00000000 | 0.00000000 | 0.00000000 | 0.00000000 | 0.00000000 | 0.00000000   |
-| wrain   | -29.57235627 | 5.41307635  | 0.00000000 | 0.00000000 | 0.00000000 | 0.00000000 | 0.00000000 | -24.15927992 |
-| wsnow   | -2.05972140  | 0.98147580  | 0.00000000 | 0.00000000 | 0.00000000 | 0.00000000 | 0.00000000 | -1.07824559  |
-| wevap   | 0.00000000   | -2.82794138 | 0.00000000 | 0.00000000 | 0.00000000 | 0.00000000 | 0.00000000 | -2.82794138  |
-| wrunoff | 0.00000000   | -0.75014053 | 0.36133891 | 0.00000000 | 0.00000000 | 0.00000000 | 0.00000000 | -0.38880162  |
-| wfrzrof | 0.00000000   | -0.18369858 | 0.00000000 | 0.00000000 | 0.00000000 | 0.00000000 | 0.00000000 | -0.18369858  |
-| *SUM*   | -31.63207767 | 2.63277166  | 0.36133891 | 0.00000000 | 0.00000000 | 0.00000000 | 0.00000000 | -28.63796710 |
-
-
+```fortran
+(seq_diag_print_mct) NET WATER BUDGET (kg/m2s*1e6): period =  monthly: date =  19800201     0
+                           atm            lnd            rof            ocn         ice nh         ice sh            glc        *SUM*  
+         wfreeze     0.00000000     0.00000000     0.00000000     0.00000000     0.00000000     0.00000000     0.00000000     0.00000000
+           wmelt     0.00000000     0.00000000     0.00000000     0.00000000     0.00000000     0.00000000     0.00000000     0.00000000
+           wrain   -29.57235627     5.41307635     0.00000000     0.00000000     0.00000000     0.00000000     0.00000000   -24.15927992
+           wsnow    -2.05972140     0.98147580     0.00000000     0.00000000     0.00000000     0.00000000     0.00000000    -1.07824559
+           wevap     0.00000000    -2.82794138     0.00000000     0.00000000     0.00000000     0.00000000     0.00000000    -2.82794138
+         wrunoff     0.00000000    -0.75014053     0.36133891     0.00000000     0.00000000     0.00000000     0.00000000    -0.38880162
+         wfrzrof     0.00000000    -0.18369858     0.00000000     0.00000000     0.00000000     0.00000000     0.00000000    -0.18369858
+           *SUM*   -31.63207767     2.63277166     0.36133891     0.00000000     0.00000000     0.00000000     0.00000000   -28.63796710
+```
 
 The `rof` column indicates the river component (MOSART) which has only one positive value **0.36133891** at row `wrunoff`. This means that river is taking water from the coupled system at a monthly averaged rate of **0.36133891** (kg/m2s*1e6)  . This rate is calculated based on the total surface area of the earth, including both ocean and land. 
 
