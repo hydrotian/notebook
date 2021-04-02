@@ -4,7 +4,7 @@ title: MOSART water budget check in coupled E3SM simulations
 date: 2021-04-01 15:19
 author: Tian
 comments: true
-categories: [Git, Programming]
+categories: [E3SM, Programming]
 tags: Null
 ---
 ## Introduction
@@ -32,15 +32,17 @@ Before we introduce the monthly budget table into MOSART, there's a `quick and d
 
 ## Steps to do the water budget checks
 
-##### 1. turn on a few flags in MOSART source code so that it could output the information needed for the check
+### 1. turn on a few flags in MOSART source code so that it could output the information needed for the check
 
 - In `\mosart\src\riverroute\RtmMod.F90`, find `output_all_budget_terms` and change it to `.true.`.
 - In the same file, find `budget_write` and change it to `.true.`.
 - compile the model.
-##### 2. make sure the `BUDGETS` is `.true.` in `env_run.xml` so that the coupler will output the budget table above.
-##### 3. run the model for at least a few months
 
-##### 4. find the budget terms from the MOSART log file
+### 2. make sure the `BUDGETS` is `.true.` in `env_run.xml` so that the coupler will output the budget table above.
+
+### 3. run the model for at least a few months
+
+### 4. find the budget terms from the MOSART log file
 
 - The water balance equation for any given time period in MOSART is
 
@@ -115,7 +117,7 @@ Before we introduce the monthly budget table into MOSART, there's a `quick and d
  ```
 - Then there's a tricky step. We need to sum the "other volume" over the time period we are examining. For example, if we are examining the first month, which is also January, then we need to sum the first 8*31 = 248 values to get the total "other volume" for this month.  In this case, the **total "other volume" is -2023.689434** (million m3).
 
-##### 5. Calculate the monthly water budget from MOSART component
+### 5. Calculate the monthly water budget from MOSART component
 - Now we can convert the values to monthly water budget using the equation below. To be consistent with the budget table, the unit will be kg/m2s*1e6:
 
 ```matlab
@@ -124,10 +126,10 @@ area = 4*pi()*R^2; % earth surface area (m2)
 budget = (rof_endS - rof_beginS - sum_other)/area/(days*24*3600)*1e15; % kg/m2s*1e6
 ```
 
-  Using the values we extract from the first month, we can calculate the `budget` is **0.361338907794895**
+  Using the values we extract from the first month above, we can calculate the `budget` is **0.361338907794895**
 
-##### 6. Compare it with the value from the coupler budget table
+### 6. Compare it with the value from the coupler budget table
 
-From the coupler budget table of the same month (the one showed in the introduction section), the value is  **0.36133891**, equals to the value calculated from the MOSART component. The check has passed!
+From the coupler budget table of the same month (the one showed in the introduction section), the value is  **0.36133891**, equals to the value calculated from the MOSART component. The check passed!
 
 
