@@ -46,6 +46,7 @@ x2r_Flrl_Tqsur   (x2r_nx,x2r_ny,time)  t_index =      1     1
 ```
 - We can also use `cprnc` to do comparisons after the runs are completed. The executable can be found in `/compyfs/e3sm_baselines/cprnc`. All you need to do is do `cprnc /path/to/first/nc/file /path/to/second/nc/file`
 - If only want to do one single test from the testing suite, we can just do for example `./create_test SMS.r05_r05.IELM.compy_intel.elm-topounit -p E3SM`.
+
 ### Adding new tests into testing suite
 After adding new features to E3SM, you have to create new tests that include these features so that future developments won't mess them up. Good information can be found from [this page](https://esmci.github.io/cime/versions/master/html/users_guide/testing.html#) and [this page](https://github.com/ESCOMP/ctsm/wiki/System-Testing-Guide#testmods).
 
