@@ -20,6 +20,7 @@ Now I have migrated my notebook from Wordpress to Github page. Markdown is brill
 |First Header | Second Header|
 
 | --- | --- |
+
 |Content in the first column | Content in the second column|
 ### styling
 ~~this~~
