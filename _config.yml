@@ -19,8 +19,8 @@ description: >- # this means to ignore newlines until "baseurl:"
   Notes about hydrology
 baseurl: '/notebook/' # the subpath of your site, e.g. /blog
 url: http://simhydro.com # the base hostname & protocol for your site, e.g. http://example.com
-#twitter_username: jekyllrb
-#github_username:  jekyll
+twitter_username: tianzhou
+github_username: hydrotian
 logo: /images/logo.png
 date_format: "%B %-d, %Y"
 read_time: true # reading time estimates, e.g. true
@@ -29,8 +29,7 @@ mathjax: true # MathJax equations, e.g. true
 google_fonts:
   - name: "Source Sans Pro"
     weights: "400,400,700,700"
-    
-  - name: "Montserrat"
+  - name: "Lora"
     weights: "400,400,700,700"
     
 # Build settings
@@ -47,5 +46,9 @@ category_archive_path: "/categories/#"
 tag_archive_path: "/tags/#"
  
 plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
   - jekyll-feed
+  - jekyll-paginate
+
 
