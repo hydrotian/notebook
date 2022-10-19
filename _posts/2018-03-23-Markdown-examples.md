@@ -17,9 +17,10 @@ Now I have migrated my notebook from Wordpress to Github page. Markdown is brill
 - [ ] this is an incomplete item[^1]
 
 ### table
-|First Header | Second Header|
-| --- | --- |
-|Content in the first column | Content in the second column|
+
+|Col 1|Col 2|
+|:----|:----|
+|Content in the first column|Content in the second column|
 ### styling
 ~~this~~
 **this**

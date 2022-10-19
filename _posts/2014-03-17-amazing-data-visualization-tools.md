@@ -20,4 +20,9 @@ categories: [Plotting]
 
 <a href="http://mpld3.github.io/index.html">http://mpld3.github.io/index.html</a>
 
-http://www.jasondavies.com/maps/transition/
+[http://www.jasondavies.com/maps/transition/](http://www.jasondavies.com/maps/transition/)
+
+[https://www.mathworks.com/products/matlab/plot-gallery.html](https://www.mathworks.com/products/matlab/plot-gallery.html)
+
+[https://goropikari.github.io/PlotsGallery.jl/](https://goropikari.github.io/PlotsGallery.jl/)
+
