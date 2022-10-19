@@ -29,7 +29,7 @@ mathjax: true # MathJax equations, e.g. true
 google_fonts:
   - name: "Source Sans Pro"
     weights: "400,400,700,700"
-  - name: "Lora"
+  - name: "Ubuntu"
     weights: "400,400,700,700"
     
 # Build settings
