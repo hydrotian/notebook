@@ -42,3 +42,16 @@ Adding following lines to activate line number
 \usepackage{lineno}
 \linenumbers
 ```
+
+## Font
+Change font of the document
+```latex
+\usepackage[T1]{fontenc} % this line will allow using accented characters as individual glyphs
+\usepackage{tgbonum} % load a font family
+\begin{document}
+{\fontfamily{pcr}\selectfont % pcr is "courier"
+enter text here
+}
+\end{document}
+```
+See more info [here](https://www.overleaf.com/learn/latex/Font_typefaces#Changing_the_default_document_fonts). About the accented characters, see [this](https://tex.stackexchange.com/a/677/283616).
