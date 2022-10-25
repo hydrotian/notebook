@@ -7,8 +7,9 @@ comments: true
 categories: [E3SM, Programming]
 tags: Null
 ---
-### Applying tests
 Before merging a Pull Request to master, the model integrators need to perform a series of tests to evaluate the new changes made in the PR. If the PR is about a new model feature, and come with a flag to activate/deactivate this feature, then we need to make sure the PR won't change the baseline results (i.e. bit for bit, B4B) when the new feature flag is turned off. There are a few steps to do such test:
+
+### Applying tests
 - First create a branch off master then switch to that branch
 - Say we want to do a testing suite called "e3sm_land_developer", the next step is to create baseline cases based on the master code:
 

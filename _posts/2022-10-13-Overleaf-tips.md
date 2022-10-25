@@ -7,6 +7,8 @@ comments: true
 categories: [Other]
 tags: Null
 ---
+Some tips about Overleaf LaTex manuscript preparation
+
 ## Track Change Document
 Overleaf is a great online LaTeX tool. There's a trend to use it in future paper development with other coauthors. Recently I submitted a manuscript using Overleaf. The process was smooth but when it comes to revision, I have to provide a track-change document that is not very easy to generate in Overleaf. Although I can use the `trackchange` package to track changes in the document, there's no way to include the changes in the compiled pdf file. After some googling, here's my solution:
 - First using [latexdiff](http://www.ctan.org/pkg/latexdiff) to generate the diff.tex file between the two documents. There's an [online tool](https://3142.nl/latex-diff/) for this step.
@@ -49,9 +51,13 @@ Change font of the document
 \usepackage[T1]{fontenc} % this line will allow using accented characters as individual glyphs
 \usepackage{tgbonum} % load a font family
 \begin{document}
-{\fontfamily{pcr}\selectfont % pcr is "courier"
-enter text here
-}
+\fontfamily{cmss}\selectfont % cmtt is "Computer Modern Sans Serif"
+
+% change font for a section
+%{\fontfamily{pcr}\selectfont % pcr is "courier"
+%enter text here
+%}
+
 \end{document}
 ```
 See more info [here](https://www.overleaf.com/learn/latex/Font_typefaces#Changing_the_default_document_fonts). About the accented characters, see [this](https://tex.stackexchange.com/a/677/283616).

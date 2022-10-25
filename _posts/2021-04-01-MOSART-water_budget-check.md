@@ -7,6 +7,8 @@ comments: true
 categories: [E3SM, Programming]
 tags: Null
 ---
+This is a guide about how to check MOSART water budget between two components in E3SM
+
 ## Introduction
 
 In current E3SM versions (V1 and V2), the river component, MOSART, only does the internal water balance check to make sure`input - output = delta storage` at every coupling time step (3 hourly). It does not average the water budget terms on monthly or annual basis in the log files. This makes it difficult to do water balance check between the river component and the coupler, in which the water budgets from each model component are summarized at monthly time scale in the log file like this:
