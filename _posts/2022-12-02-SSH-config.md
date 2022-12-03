@@ -7,13 +7,14 @@ comments: true
 categories: [Other, Programming, E3SM]
 tags: Null
 ---
+
 Some HPCs such as Argonne's LCRC machines require SSH keys to get connected. It's a convinient and safer way to connect after set it up. But it's a little tricky if you still want to view the remote directories from software like WinSCP on Windows. Here's a brief guide.
 
 ## On Mac
 
 Mac is relativly easy. Just follow the instruction to create a public SSH key using OpenSSH and upload it (`id_rsa.pub`) to your account then you can log in from terminal or Microsoft Code. The command is
 
-```linux
+```bash
 cd ~/.ssh
 ssh-keygen -b 4096 -t rsa
 ```
