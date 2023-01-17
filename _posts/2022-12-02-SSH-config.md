@@ -7,7 +7,6 @@ comments: true
 categories: [Other, Programming, E3SM]
 tags: Null
 ---
-
 Some HPCs such as Argonne's LCRC machines require SSH keys to get connected. It's a convinient and safer way to connect after set it up. But it's a little tricky if you still want to view the remote directories from software like WinSCP on Windows. Here's a brief guide.
 
 ## On Mac
