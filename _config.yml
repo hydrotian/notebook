@@ -31,7 +31,7 @@ mathjax: true # MathJax equations, e.g. true
 markdown: kramdown
 
 #theme: minima
-#remote_theme: "mmistakes/so-simple-theme"
+remote_theme: "mmistakes/so-simple-theme"
 
 # Search
 search_full_content: true # can have performance implications for large sites
