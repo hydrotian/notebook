@@ -26,11 +26,11 @@ date_format: "%B %-d, %Y"
 read_time: true # reading time estimates, e.g. true
 words_per_minute: 200 # 200
 mathjax: true # MathJax equations, e.g. true
-# google_fonts:
-#   - name: "Source Sans Pro"
-#     weights: "400,400,700,700"
-#   - name: "Ubuntu"
-#    weights: "400,400,700,700"
+google_fonts:
+  - name: "Source Sans Pro"
+    weights: "400,400,700,700"
+  - name: "Ubuntu"
+   weights: "400,400,700,700"
     
 # Build settings
 markdown: kramdown
