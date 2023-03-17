@@ -28,7 +28,7 @@
   {% if site.google_fonts %}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family={%- for font in site.google_fonts -%}{{ font.name | replace: ' ', '+' }}{% if font.weights %}:{% endif %}{{ font.weights | remove: ' ' }}{% if forloop.last != true %}|{% endif %}{%- endfor -%}">
   {% endif %}
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sono&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Maven+Pro&display=swap">
 
   {%- if site.plugins contains 'jekyll-feed' or site.gems contains 'jekyll-feed' -%}
     {%- comment -%}
