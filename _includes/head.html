@@ -30,11 +30,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family={%- for font in site.google_fonts -%}{{ font.name | replace: ' ', '+' }}{% if font.weights %}:{% endif %}{{ font.weights | remove: ' ' }}{% if forloop.last != true %}|{% endif %}{%- endfor -%}">
   {% endif %}
   -->
-
- <link rel="preconnect" href="https://fonts.googleapis.com">
- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Sono&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
 
   {%- if site.plugins contains 'jekyll-feed' or site.gems contains 'jekyll-feed' -%}
     {%- comment -%}
