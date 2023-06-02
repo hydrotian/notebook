@@ -42,7 +42,7 @@ In the case of 17 PFT surface data, **`PCT_NAT_PFT`** symbolizes the 17 plant fu
   !   16 => c3_irrigated
 ```
 
-For the 15 PFT + 2 CFT surface data, the last two PFTs are converted into CFTs. Consequently, **`PCT_NAT_PFT`** represents only 15 PFTs, which must also total 100. There is a new variable, **`PCT_CROP`**, with a dimension of `cft = 2`. This variable represents the two crop types, c3 rainfed crop and c3 irrigated crop, which should also sum to 100.
+For the 15 PFT + 2 CFT surface data, the last two PFTs are converted into CFTs. Consequently, **`PCT_NAT_PFT`** represents only 15 PFTs, which must also total 100. There is a new variable, **`PCT_CFT`**, with a dimension of `cft = 2`. This variable represents the two crop types, c3 rainfed crop and c3 irrigated crop, which should also sum to 100.
 
 Some data has additional CFTs, such as one used in CLM 4.5 which has 15 PFTs and 10 CFTs. The additional crop types are defined as follows in the source code:
 
@@ -58,8 +58,9 @@ Some data has additional CFTs, such as one used in CLM 4.5 which has 15 PFTs and
 ```
 
 ### Landuse data
-For the landuse data, it is improtant to know that some fractions remain constant over the time. These fraction variables are not nessassary to be included in the landuse data but I see in many cases people still add some or all of them to the landuse data for references. These constant variables are
+In the first time step of January 1 of a transient run, changes in land unit weights can potentially come from two sources: Changes in the area of the crop land unit come from the landuse dataset, and changes in the area of the glacier land unit come from the ice sheet model. The areas of other land units are then adjusted so that the total landunit area remains 100%. Since we don't usually turn on the ice sheet model in most of our simulations, the glacier fraction remains constant. Therefore the only source of the area weight change comes from the crop fraction (i.e. **PCT_CROP**). If the total land unit area of crops has decreased, then the natural vegetated landunit(i.e. **PCT_NATVEG**) is increased to fill in the abandoned land. If the total land unit area of glaciers and crops has increased, then other land unit areas are decreased in a specified order until the total is once again 100%. The order of decrease is: natural vegetation, crop, urban medium density, urban high density, urban tall building district, wetland, lake.
 
+Down below is the comments in the source code explaining the `decrease_order`:
 ```fortran
     ! This parameter specifies the order in which landunit areas are decreased when the
     ! specified areas add to greater than 100%. Landunits not listed here can never be
