@@ -44,17 +44,43 @@ In the case of 17 PFT surface data, **PCT_NAT_PFT** symbolizes the 17 plant func
 
 For the 15 PFT + 2 CFT surface data, the last two PFTs are converted into CFTs. Consequently, **PCT_NAT_PFT** represents only 15 PFTs, which must also total 100. There is a new variable, **PCT_CFT**, with a dimension of `cft = 2`. This variable represents the two crop types, c3 rainfed crop and c3 irrigated crop, which should also sum to 100.
 
-Some data has additional CFTs, such as one used in CLM 4.5 which has 15 PFTs and 10 CFTs. The additional crop types are defined as follows in the source code:
+Some data has additional CFTs, such as one used in later vision of ELM which has 15 PFTs and 36 CFTs. The additional crop types are defined as follows in the source code:
 
 ```fortran
-  !   17 => corn
-  !   18 => irrigated corn
-  !   19 => spring temperate cereal
-  !   20 => irrigated spring temperate cereal
-  !   21 => winter temperate cereal
-  !   22 => irrigated winter temperate cereal
-  !   23 => soybean
-  !   24 => irrigated soybean
+17 -> corn                               
+18 -> irrigated_corn                     
+19 -> spring_temperate_cereal            
+20 -> irrigated_spring_temperate_cereal  
+21 -> winter_temperate_cereal            
+22 -> irrigated_winter_temperate_cereal  
+23 -> soybean                            
+24 -> irrigated_soybean
+25 -> cassava                            
+26 -> irrigated_cassava                  
+27 -> cotton                             
+28 -> irrigated_cotton                   
+29 -> foddergrass                        
+30 -> irrigated_foddergrass              
+31 -> oilpalm                            
+32 -> irrigated_oilpalm                  
+33 -> other_grains                       
+34 -> irrigated_other_grains             
+35 -> rapeseed                           
+36 -> irrigated_rapeseed                 
+37 -> rice                               
+38 -> irrigated_rice                     
+39 -> root_tubers                        
+40 -> irrigated_root_tubers              
+41 -> sugarcane                          
+42 -> irrigated_sugarcane                
+43 -> miscanthus                         
+44 -> irrigated_miscanthus               
+45 -> switchgrass                        
+46 -> irrigated_switchgrass              
+47 -> poplar                             
+48 -> irrigated_poplar                   
+49 -> willow                             
+50 -> irrigated_willow  
 ```
 
 ### Landuse data
