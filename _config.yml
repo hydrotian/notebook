@@ -26,7 +26,9 @@ date_format: "%B %-d, %Y"
 read_time: true # reading time estimates, e.g. true
 words_per_minute: 200 # 200
 mathjax: true # MathJax equations, e.g. true
-    
+disqus:
+  shortname: "simhydro"
+
 # Build settings
 markdown: kramdown
 
