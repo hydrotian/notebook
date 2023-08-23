@@ -7,7 +7,7 @@ comments: true
 categories: [E3SM]
 tags: Null
 ---
-I was recently tasked with conducting a coupled E3SM simulation experiment, providing me with the opportunity to familiarize myself with the latest best-practice simulation standards.
+I was recently requested to conduct a coupled E3SM simulation experiment. This task provids me with the opportunity to familiarize myself with the latest best-practice simulation standards. An official step-by-step guide can be found [here](https://acme-climate.atlassian.net/wiki/spaces/DOC/pages/2309226536/Running+E3SM+step-by-step+guide).
 
 ## Some Key Takeaways:
 - **Comprehensive Scripting:** Maintain all aspects within the script, including cloning the source code, building the project, and altering the namelist. This practice helps prevent future mistakes.
@@ -67,3 +67,6 @@ I was recently tasked with conducting a coupled E3SM simulation experiment, prov
     ```
     - If everything runs okay, the analysis results will be availble to the public like [this](https://web.lcrc.anl.gov/public/e3sm/diagnostic_output/ac.tian.zhou/E3SMv3_dev/longpipe/20230808.v3alpha02.piControl.chrysalis/)
     - If you want to compare the zppy-generated plots using the Interface for InterComparision of E3SM (IICE) between simulations, you could use these two links for [E3SM_Diags](https://portal.nersc.gov/project/e3sm/iice/) and for [MPAS](https://portal.nersc.gov/project/e3sm/iice/mpas-a/). 
+- **Documenting the simulation:**
+  - Use this [template](https://acme-climate.atlassian.net/wiki/spaces/EWCG/pages/2297299190/Simulation+Run+Template) to document the simulation.
+  - [PACE](https://pace.ornl.gov/) provides detailed performance information for simulations. Provide job ID or search username to find the simulation.
