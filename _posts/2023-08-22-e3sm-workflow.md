@@ -7,7 +7,6 @@ comments: true
 categories: [E3SM]
 tags: Null
 ---
-# Updated E3SM Workflow
 I was recently tasked with conducting a coupled E3SM simulation experiment, providing me with the opportunity to familiarize myself with the latest best-practice simulation standards.
 
 ## Some Key Takeaways:
@@ -24,22 +23,22 @@ I was recently tasked with conducting a coupled E3SM simulation experiment, prov
     - Ensure `do_fetch_code=true` to enable the script to automatically clone the code and check the correct branch.
 - **Short Test and Verification:**
     - After the short test, varify the test results with the original simulation results by using the `md5sum` function:
-```fortran
-# 10-day test simulations with different layouts
-cd /lcrc/group/e3sm/ac.tian.zhou/E3SMv3_dev/20230808.v3alpha02.piControl.chrysalis/tests
-for test in *_*_ndays
-do
-  zgrep -h '^ nstep, te ' ${test}/run/atm.log.*.gz | sort -n -k 3,3 | uniq > atm_${test}.txt
-done
+    ```fortran
+    # 10-day test simulations with different layouts
+    cd /lcrc/group/e3sm/ac.tian.zhou/E3SMv3_dev/20230808.v3alpha02.piControl.chrysalis/tests
+    for test in *_*_ndays
+    do
+        zgrep -h '^ nstep, te ' ${test}/run/atm.log.*.gz | sort -n -k 3,3 | uniq > atm_${test}.txt
+    done
 
-# Reference simulation from original runs (log files extracted using zstash)
-zgrep -h '^ nstep, te ' /lcrc/group/e3sm/ac.golaz/E3SMv3_dev/20230808.v3alpha02.piControl.chrysalis/original/archive/logs/atm.log.347003.230622-141836.gz | sort -n -k 3,3 | uniq | head -n 482 > atm_ref.txt
+    # Reference simulation from original runs (log files extracted using zstash)
+    zgrep -h '^ nstep, te ' /lcrc/group/e3sm/ac.golaz/E3SMv3_dev/20230808.v3alpha02.piControl.chrysalis/original/archive/logs/atm.log.347003.230622-141836.gz | sort -n -k 3,3 | uniq | head -n 482 > atm_ref.txt
 
-# Verification
-md5sum *.txt
-ac18d8e307d5f474659dffbde3ddf0d3  atm_ref.txt
-ac18d8e307d5f474659dffbde3ddf0d3  atm_XS_1x10_ndays.txt
-```
+    # Verification
+    md5sum *.txt
+    ac18d8e307d5f474659dffbde3ddf0d3  atm_ref.txt
+    ac18d8e307d5f474659dffbde3ddf0d3  atm_XS_1x10_ndays.txt
+    ```
 - **Modifications and Further Testing:**
     - Modify the simulation case as needed.
     - If the source code remains the same, no need to rebuild the model for other tests or production runs. Set `do_fetch_code=false` and `do_case_build=false`; others remain `true`.
