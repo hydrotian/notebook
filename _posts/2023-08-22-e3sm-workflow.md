@@ -30,10 +30,8 @@ I was recently tasked with conducting a coupled E3SM simulation experiment, prov
     do
         zgrep -h '^ nstep, te ' ${test}/run/atm.log.*.gz | sort -n -k 3,3 | uniq > atm_${test}.txt
     done
-
     # Reference simulation from original runs (log files extracted using zstash)
     zgrep -h '^ nstep, te ' /lcrc/group/e3sm/ac.golaz/E3SMv3_dev/20230808.v3alpha02.piControl.chrysalis/original/archive/logs/atm.log.347003.230622-141836.gz | sort -n -k 3,3 | uniq | head -n 482 > atm_ref.txt
-
     # Verification
     md5sum *.txt
     ac18d8e307d5f474659dffbde3ddf0d3  atm_ref.txt
