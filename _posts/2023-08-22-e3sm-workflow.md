@@ -70,3 +70,8 @@ I was recently requested to conduct a coupled E3SM simulation experiment. This t
 - **Documenting the simulation:**
   - Use this [template](https://acme-climate.atlassian.net/wiki/spaces/EWCG/pages/2297299190/Simulation+Run+Template) to document the simulation.
   - [PACE](https://pace.ornl.gov/) provides detailed performance information for simulations. Provide job ID or search username to find the simulation.
+
+## Additional Notes:
+- Quota check for Compy and Chrysalis
+    - Compy: `lfs quota -hu zhou014 /compyfs`
+    - Chrysalis: `/usr/lpp/mmfs/bin/mmlsquota -u ac.tian.zhou --block-size T fs2`
