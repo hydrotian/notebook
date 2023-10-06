@@ -62,7 +62,15 @@ I was recently requested to conduct a coupled E3SM simulation experiment. This t
     - Rename and customize the file content.
     - Run zppy
     ```bash
-    source /lcrc/soft/climate/e3sm-unified/test_e3sm_unified_1.9.0rc12_chrysalis.sh
+    # first load e3sm_unified 
+    # on Chrysalis
+    source /lcrc/soft/climate/e3sm-unified/load_latest_e3sm_unified_chrysalis.sh
+    # on Compy
+    source /share/apps/E3SM/conda_envs/load_latest_e3sm_unified_compy.sh
+    # on NERSC Perlmutter
+    source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_pm-cpu.sh
+    
+    # then run zppy
     zppy -c <your_file>.cfg
     ```
     - If everything runs okay, the analysis results will be availble to the public like [this](https://web.lcrc.anl.gov/public/e3sm/diagnostic_output/ac.tian.zhou/E3SMv3_dev/longpipe/20230808.v3alpha02.piControl.chrysalis/)
