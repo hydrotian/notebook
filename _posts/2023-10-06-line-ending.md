@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Dealing with Line Endings in Git: A Jekyll-GitHub Pages Experience
+title: Dealing with Line Endings in Git
 date: 2023-10-06 1:19
 author: Tian
 comments: true
