@@ -24,18 +24,18 @@ I was recently requested to conduct a coupled E3SM simulation experiment. This t
 - **Short Test and Verification:**
     - After the short test, varify the test results with the original simulation results by using the `md5sum` function:
     ```fortran
-    # 10-day test simulations with different layouts
-    cd /lcrc/group/e3sm/ac.tian.zhou/E3SMv3_dev/20230808.v3alpha02.piControl.chrysalis/tests
-    for test in *_*_ndays
-    do
-        zgrep -h '^ nstep, te ' ${test}/run/atm.log.*.gz | sort -n -k 3,3 | uniq > atm_${test}.txt
-    done
-    # Reference simulation from original runs (log files extracted using zstash)
-    zgrep -h '^ nstep, te ' /lcrc/group/e3sm/ac.golaz/E3SMv3_dev/20230808.v3alpha02.piControl.chrysalis/original/archive/logs/atm.log.347003.230622-141836.gz | sort -n -k 3,3 | uniq | head -n 482 > atm_ref.txt
-    # Verification
-    md5sum *.txt
-    ac18d8e307d5f474659dffbde3ddf0d3  atm_ref.txt
-    ac18d8e307d5f474659dffbde3ddf0d3  atm_XS_1x10_ndays.txt
+        # 10-day test simulations with different layouts
+        cd /lcrc/group/e3sm/ac.tian.zhou/E3SMv3_dev/20230808.v3alpha02.piControl.chrysalis/tests
+        for test in *_*_ndays
+        do
+            zgrep -h '^ nstep, te ' ${test}/run/atm.log.*.gz | sort -n -k 3,3 | uniq > atm_${test}.txt
+        done
+        # Reference simulation from original runs (log files extracted using zstash)
+        zgrep -h '^ nstep, te ' /lcrc/group/e3sm/ac.golaz/E3SMv3_dev/20230808.v3alpha02.piControl.chrysalis/original/archive/logs/atm.log.347003.230622-141836.gz | sort -n -k 3,3 | uniq | head -n 482 > atm_ref.txt
+        # Verification
+        md5sum *.txt
+        ac18d8e307d5f474659dffbde3ddf0d3  atm_ref.txt
+        ac18d8e307d5f474659dffbde3ddf0d3  atm_XS_1x10_ndays.txt
     ```
 - **Modifications and Further Testing:**
     - Modify the simulation case as needed.
@@ -44,34 +44,33 @@ I was recently requested to conduct a coupled E3SM simulation experiment. This t
     - Once the production run is done, consider archiving the results.
     - First compress log files from failed runs. Make sure not to compress the log files from an active simulation, this will cause the model to crash
     ```bash
-    cd /lcrc/group/e3sm/ac.tian.zhou/E3SMv3_dev/20230808.v3alpha02.piControl.chrysalis/run
-    gzip *.log.372164.230811-102057 
+        cd /lcrc/group/e3sm/ac.tian.zhou/E3SMv3_dev/20230808.v3alpha02.piControl.chrysalis/run
+        gzip *.log.372164.230811-102057 
     ```
     - Repeat for all the log file time stamps, except the current one.
     - Short term archiving for the first 50 years (siumulation was from 0001 to 0050)
     ```bash
-    cd /lcrc/group/e3sm/ac.tian.zhou/E3SMv3_dev/20230808.v3alpha02.piControl.chrysalis/case_scripts
-    ./case.st_archive --last-date 0051-01-01 --force-move --no-incomplete-logs
+        cd /lcrc/group/e3sm/ac.tian.zhou/E3SMv3_dev/20230808.v3alpha02.piControl.chrysalis/case_scripts
+        ./case.st_archive --last-date 0051-01-01 --force-move --no-incomplete-logs
     ```
 - **Postprocessing using zppy:**
     - Prepare zppy configuration file. You can start with an exsisting one
     ```bash
-    cd ~/E3SMv3_dev/scripts
-    cp /home/ac.golaz/E3SMv3_dev/scripts/post.20230802.v3alpha02.1pctCO2_0101.chrysalis.cfg .
+        cd ~/E3SMv3_dev/scripts
+        cp /home/ac.golaz/E3SMv3_dev/scripts/post.20230802.v3alpha02.1pctCO2_0101.chrysalis.cfg .
     ```
     - Rename and customize the file content.
     - Run zppy
     ```bash
-    # first load e3sm_unified 
-    # on Chrysalis
-    source /lcrc/soft/climate/e3sm-unified/load_latest_e3sm_unified_chrysalis.sh
-    # on Compy
-    source /share/apps/E3SM/conda_envs/load_latest_e3sm_unified_compy.sh
-    # on NERSC Perlmutter
-    source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_pm-cpu.sh
-    
-    # then run zppy
-    zppy -c <your_file>.cfg
+        # first load e3sm_unified 
+        # on Chrysalis
+        source /lcrc/soft/climate/e3sm-unified/load_latest_e3sm_unified_chrysalis.sh
+        # on Compy
+        source /share/apps/E3SM/conda_envs/load_latest_e3sm_unified_compy.sh
+        # on NERSC Perlmutter
+        source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_pm-cpu.sh   
+        # then run zppy
+        zppy -c <your_file>.cfg
     ```
     - If everything runs okay, the analysis results will be availble to the public like [this](https://web.lcrc.anl.gov/public/e3sm/diagnostic_output/ac.tian.zhou/E3SMv3_dev/longpipe/20230808.v3alpha02.piControl.chrysalis/)
     - If you want to compare the zppy-generated plots using the Interface for InterComparision of E3SM (IICE) between simulations, you could use these two links for [E3SM_Diags](https://portal.nersc.gov/project/e3sm/iice/) and for [MPAS](https://portal.nersc.gov/project/e3sm/iice/mpas-a/). 
