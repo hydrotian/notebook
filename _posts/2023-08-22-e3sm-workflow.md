@@ -89,11 +89,16 @@ I was recently requested to conduct a coupled E3SM simulation experiment. This t
         ```
         alias sqa='squeue -o "%8u %.7a %.4D %.9P %7i %.2t %.10r %.10M %.10l %.8Q %j" --sort=P,-t,-p'
         ```
-    - To check the age of a job
+    - To check the priority of a job
         ```
         sprio -l -j <JOBID>
          JOBID PARTITION     USER PRIORITY SITE AGE ASSOC FAIRSHARE JOBSIZE PARTITION   QOS NICE TRES
         411168   compute ac.tian.    53844    0 843     0       560    2441         0 50000    0   
         ```
         The high qos command above increased my job QOS from 5000 to 50000. The higher QOS, the higher PRIORITY. The AGE is the waiting time spent in the queue in minute. The longer AGE, the higher PRIORITY too.
-    
+    - To use priority partition, simply modify the following lines in the run script, of course, you have to be added to the priority partition by the admin first.
+        ```
+        readonly PROJECT="priority"
+        ./xmlchange CHARGE_ACCOUNT=priority
+        ./xmlchange --force JOB_QUEUE=priority
+        ```
