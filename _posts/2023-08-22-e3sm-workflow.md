@@ -82,3 +82,18 @@ I was recently requested to conduct a coupled E3SM simulation experiment. This t
 - Quota check for Compy and Chrysalis
     - Compy: `lfs quota -hu zhou014 /compyfs`
     - Chrysalis: `/usr/lpp/mmfs/bin/mmlsquota -u ac.tian.zhou --block-size T fs2`
+- Job management
+    - From Chris: to boost the Quality of Service (QoS) for a faster job turnaround, one can do `scontrol update jobid=<JOBID> qos=high` for a waiting job. You can also edit `env_batch.xml` in `case_scripts` by adding 
+    `<directive> --qos=high </directive>`
+    - Chris also shared a command to list priorities for all jobs:
+        ```
+        alias sqa='squeue -o "%8u %.7a %.4D %.9P %7i %.2t %.10r %.10M %.10l %.8Q %j" --sort=P,-t,-p'
+        ```
+    - To check the age of a job
+        ```
+        sprio -l -j <JOBID>
+         JOBID PARTITION     USER PRIORITY SITE AGE ASSOC FAIRSHARE JOBSIZE PARTITION   QOS NICE TRES
+        411168   compute ac.tian.    53844    0 843     0       560    2441         0 50000    0   
+        ```
+        The high qos command above increased my job QOS from 5000 to 50000. The higher QOS, the higher PRIORITY. The AGE is the waiting time spent in the queue in minute. The longer AGE, the higher PRIORITY too.
+    
