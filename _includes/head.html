@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family={%- for font in site.google_fonts -%}{{ font.name | replace: ' ', '+' }}{% if font.weights %}:{% endif %}{{ font.weights | remove: ' ' }}{% if forloop.last != true %}|{% endif %}{%- endfor -%}">
   {% endif %}
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Maven+Pro&display=swap">
-  <link rel="icon" href="{{ '/images/favicon.png' | relative_url }}" type="image/png">
+  <link rel="icon" href="{{ '/images/favicon.ico' | relative_url }}" type="image/png">
 
   {%- if site.plugins contains 'jekyll-feed' or site.gems contains 'jekyll-feed' -%}
     {%- comment -%}
