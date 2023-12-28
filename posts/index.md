@@ -25,11 +25,13 @@ search_omit: true
 <ul class="taxonomy-index">
   {% assign postsInYear = site.posts | group_by_exp: 'post', 'post.date | date: "%Y"' %}
   {% for year in postsInYear %}
+   {% unless year.name == "1999" %} <!-- year for developing posts -->
     <li>
       <a href="#{{ year.name }}">
         <strong>{{ year.name }}</strong> <span class="taxonomy-count">{{ year.items | size }}</span>
       </a>
     </li>
+   {% endunless %}
   {% endfor %}
 </ul>
 
@@ -37,6 +39,7 @@ search_omit: true
 <br>
 <br>
 {% for year in postsByYear %}
+ {% unless year.name == "1999" %} <!-- year for developing posts -->
   <section id="{{ year.name }}" class="post-list">
     <h2 class="taxonomy-title">{{ year.name }}</h2>	
     <ul class="post-list">
@@ -46,6 +49,7 @@ search_omit: true
     </ul>
     <a href="#page-title" class="back-to-top">{{ site.data.text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
   </section>
+  {% endunless %}
 {% endfor %}
 
 <!-- Line Break -->
