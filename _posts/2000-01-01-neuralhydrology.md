@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Learning Neural Hydrology
-date:
 author: Tian
 comments: true
 categories: []
