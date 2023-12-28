@@ -284,3 +284,9 @@
     max-width: $main-sidebar-max-width;
   }
 }
+
+pre, code {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
