@@ -6,6 +6,7 @@ author: Tian
 comments: true
 categories: []
 tags: Null
+developing: true
 ---
 I want to take some notes when learning [Neural Hydrology](https://neuralhydrology.github.io/) for some research ideas. Since some of the information in this note is not verified or based on some conversations with ChatGPT, I don't want list this as an open note. But I may sometime when I have 100% confidence about the content.
 

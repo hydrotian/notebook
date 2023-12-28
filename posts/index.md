@@ -47,3 +47,19 @@ search_omit: true
     <a href="#page-title" class="back-to-top">{{ site.data.text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
   </section>
 {% endfor %}
+
+<!-- Line Break -->
+<br/>
+
+<!-- Developing Posts Section -->
+<section class="developing-posts">
+  <h2>Posts under Development</h2>
+  <ul class="post-list">
+    {% for post in site.posts %}
+      {% if post.developing %}
+        <li><a href="{{ site.url }}{{ post.url | prepend:site.baseurl }}">{{ post.title }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</section>
+

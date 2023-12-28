@@ -6,5 +6,7 @@ author: Tian
 comments: true
 categories: [Git, Programming]
 tags: Null
+pinned: true
+developing: true
 ---
 This is a sample file
