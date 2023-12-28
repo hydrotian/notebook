@@ -16,7 +16,12 @@ search_omit: true
   </ul>
 </section>
 
+<!-- Line Break -->
+<br/>
+
 <!-- Yearly Archive Section -->
+<h2>Yearly Archived Posts</h2>
+
 <ul class="taxonomy-index">
   {% assign postsInYear = site.posts | group_by_exp: 'post', 'post.date | date: "%Y"' %}
   {% for year in postsInYear %}
