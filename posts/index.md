@@ -4,7 +4,19 @@ title: Posts
 excerpt: "An archive of posts sorted by time."
 search_omit: true
 ---
+<!-- Pinned Posts Section -->
+<section class="pinned-posts">
+  <h2>Pinned Posts</h2>
+  <ul class="post-list">
+    {% for post in site.posts %}
+      {% if post.pinned %}
+        <li><a href="{{ site.url }}{{ post.url | prepend:site.baseurl }}">{{ post.title }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</section>
 
+<!-- Yearly Archive Section -->
 <ul class="taxonomy-index">
   {% assign postsInYear = site.posts | group_by_exp: 'post', 'post.date | date: "%Y"' %}
   {% for year in postsInYear %}

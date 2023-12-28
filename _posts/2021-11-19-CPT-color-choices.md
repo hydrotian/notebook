@@ -6,6 +6,7 @@ author: Tian
 comments: true
 categories: [Plotting]
 tags: Null
+pinned: true
 ---
 
 Put some sample color schemes I usually use here so that I can quickly check when I need to.

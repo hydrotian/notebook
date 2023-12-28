@@ -6,6 +6,7 @@ author: Tian
 comments: true
 categories: [E3SM]
 tags: Null
+pinned: true
 ---
 I was recently requested to conduct a coupled E3SM simulation experiment. This task provids me with the opportunity to familiarize myself with the latest best-practice simulation standards. An official step-by-step guide can be found [here](https://acme-climate.atlassian.net/wiki/spaces/DOC/pages/2309226536/Running+E3SM+step-by-step+guide).
 
