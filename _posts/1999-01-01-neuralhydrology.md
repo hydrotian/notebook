@@ -120,7 +120,6 @@ log_n_figures: 1
 
 # Save model weights every n epochs
 save_weights_every: 1
-
-{: .wrap-code}
 ```
+{: .wrap-code}
  
