@@ -20,7 +20,7 @@ The tutorial of [Neural Hydrology](https://neuralhydrology.readthedocs.io/en/lat
 
 ## Some explainations for config options (not verified)
 While some of the config options are self-explanatory, some options relavent to LSTM needs more explainations. I will just add them as comments.
-```yml
+```yml {.wrap-code}
 ...
 # which GPU (id) to use [in format of cuda:0, cuda:1 etc, or cpu or None]
 ## TZ: on desktop, if only one video card, then it's cuda:0
