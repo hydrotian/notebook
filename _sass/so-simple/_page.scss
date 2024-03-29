@@ -289,3 +289,9 @@ pre, code {
   white-space: pre;
   word-wrap: normal;
 }
+
+/* Class for wrapping code */
+.wrap-code {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

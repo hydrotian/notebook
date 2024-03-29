@@ -1,3 +1,9 @@
 body {
     font-family: 'Roboto', sans-serif;
   }
+
+/* Class for wrapping code */
+.wrap-code {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
