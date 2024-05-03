@@ -1,6 +1,6 @@
 ---
 layout: post
-title: About ELM/CLM runoff variables
+title: Runoff variables in ELM(CLM) and MOSART
 date: 2020-03-15 15:19
 author: Tian
 comments: true
@@ -9,7 +9,7 @@ tags: Null
 ---
 There are many variables related to runoff generated in ELM/CLM. These fluxes are then passed to MOSART with different names, need to be very clear what do they mean.
 
-The hydrologic processes for CLM 4.5 are clearly represented below. I got it from Gautam but don't know if he made it. (more [here](https://escomp.github.io/ctsm-docs/versions/master/html/tech_note/Hydrology/CLM50_Tech_Note_Hydrology.html) for CLM 5).
+The hydrologic processes for CLM 4.5 are clearly represented in below diagram. I got it from [Gautam](https://www.pnnl.gov/people/gautam-bisht) but don't know if he made it. (more [here](https://escomp.github.io/ctsm-docs/versions/master/html/tech_note/Hydrology/CLM50_Tech_Note_Hydrology.html) for CLM 5).
 
 ![CLM  hydrology](https://simhydro.com/notebook/images/misc/CLM45_hydrology.jpg)
 
