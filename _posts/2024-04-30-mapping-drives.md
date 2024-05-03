@@ -21,4 +21,4 @@ This step is for NERSC only.
 ### 2. Mapping remote directory on Windows machine
 Once the SSH key is set up, go install [sshfs-win](https://github.com/winfsp/sshfs-win) and [sshfs-win-manager](https://github.com/evsar3/sshfs-win-manager). To mount NERSC driver, you need the OpenSSH public key file again. This sshfs-win-manager is just brillent. It offers a user-friendly interface allowing you to connect or disconnect drives at your convenience. It supports both password and key file authentication and allows you to assign specific drive letters to each mounted drive. 
 
-![alt text](https://simhydro.com/notebook/images/SSHFS-win-manager.png)
+![alt text](https://simhydro.com/notebook/images/misc/SSHFS-win-manager.png)

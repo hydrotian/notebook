@@ -21,7 +21,7 @@ baseurl: '/notebook/' # the subpath of your site, e.g. /blog
 url: http://simhydro.com # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: tianzhou
 github_username: hydrotian
-logo: /images/logo.png
+logo: /images/logos/logo.png
 date_format: "%B %-d, %Y"
 read_time: true # reading time estimates, e.g. true
 words_per_minute: 200 # 200
