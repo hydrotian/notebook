@@ -31,7 +31,7 @@ Here's the interactive US vs. China GDP chart I made with Gemini's help, embedde
 <iframe 
   src="{{ site.baseurl }}/interactive/gdp_charts/index.html" 
   width="100%" 
-  height="550" 
+  height="600" 
   style="border: 1px solid #ccc; max-width: 900px; display: block; margin: 1em auto;"
   title="Interactive US vs China GDP Chart"
   >
