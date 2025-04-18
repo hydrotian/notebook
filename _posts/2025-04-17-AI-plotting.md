@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Making Interactive Web Charts with Help from AI!
+title: Making Interactive Web Charts with Help from AI
 date: 2025-04-17 17:45:00 # Adjust date/time as needed
 author: Tian # Or your name
 comments: true
