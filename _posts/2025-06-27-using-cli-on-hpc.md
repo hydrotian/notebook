@@ -38,6 +38,7 @@ Click into the directory for the Node.js version you want (e.g., v20.15.1/).
 ## Part 3: Install Claude Code
 - Claude Code can be installed without error message using `npm install -g @anthropic-ai/claude-code`.
 - However, when running it using `claude` command, it failed due to a shebang incompatibility as the old system on the HPC doesn't know the `-S` option. To solve this, Gemini helped me create a wrapper script in `$HOME/bin/claude-exec`:
+
 ```bash
 #!/bin/bash
 # This script acts as a modern replacement for 'env -S' on older systems.
