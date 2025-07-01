@@ -31,7 +31,7 @@ Click into the directory for the Node.js version you want (e.g., v20.15.1/).
 - Then when you trying to start Gemini, there's a authentication process, usually a webpage will pop out and you sign in. However now we are working with and HPC, which didn't have smooth link to webpages.
 - I did see google log in page opened on my local web browser, I signed in and grant permissions
 - Here's a tricky part, your browser will redirect to a localhost URL and show an error. This is expected. Copy this entire localhost URL.
-- Open another terminal (don't close the one that runs the Gemini), past the full localhost URL inside the quotes in this command `curl "http://localhost:XXXXX"`
+- Open another terminal **on the HPC** (while leaving the Gemini CLI running in the first one). Paste the full localhost URL you copied from your browser into the following command: `curl "http://localhost:XXXXX"`
 - The terminal running gemini will now be authenticated.
 - One more issue is that the `npx` command needs to be executed everytime log into the HPC. So I added a line to create an alias in the `~/.bashrc`: `alias gemini='npx https://github.com/google-gemini/gemini-cli'`. The good news is that you don't need to be authenticated again.
 
