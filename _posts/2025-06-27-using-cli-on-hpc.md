@@ -60,3 +60,5 @@ exec "$NODE_EXEC_PATH" --no-warnings --enable-source-maps "$CLAUDE_SCRIPT_PATH" 
 Then add an alias to `.bashrc` file: `alias claude='$HOME/bin/claude-exec'`.
 
 - The authentication process is the same and since this time Claude Code was installed by `npm` (not `npx` for Gemini CLI), you don't need to install it again.
+
+- There's a good [tool bar](https://github.com/leeguooooo/claude-code-usage-bar) to help you lively tracking how much you spent on Claude Code. I used [tmux](https://github.com/tmux/tmux/wiki) to show it at the bottom of my terminal.
