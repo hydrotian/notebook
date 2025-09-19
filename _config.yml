@@ -26,8 +26,12 @@ date_format: "%B %-d, %Y"
 read_time: true # reading time estimates, e.g. true
 words_per_minute: 200 # 200
 mathjax: true # MathJax equations, e.g. true
-disqus:
-  shortname: "simhydro"
+# Comments via Giscus (GitHub Discussions)
+giscus:
+  repo: "hydrotian/notebook"
+  repo_id: "MDEwOlJlcG9zaXRvcnkxMjQ2MzUwNDk="  # Replace with your actual repo ID
+  category: "Announcements"
+  category_id: "DIC_kwDOB23Hqc4CvqAZ"  # Replace with your actual category ID
 
 # Build settings
 markdown: kramdown

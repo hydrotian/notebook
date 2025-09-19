@@ -72,6 +72,6 @@ bundle exec jekyll build       # Build for production
 - **Theme**: So Simple (mmistakes/so-simple-theme)
 - **Markdown**: Kramdown processor
 - **Math**: MathJax enabled
-- **Comments**: Disqus (shortname: simhydro)
+- **Comments**: Giscus (GitHub Discussions)
 - **Search**: Full content search
 - **Features**: Reading time, SEO tags, RSS feed, pagination

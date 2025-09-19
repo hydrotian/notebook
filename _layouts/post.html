@@ -30,8 +30,8 @@ layout: default
           {% include social-share.html %}
         {% endif %}
 
-        {% if site.disqus.shortname %}
-          {% include disqus-comments.html %}
+        {% if site.giscus.repo %}
+          {% include giscus-comments.html %}
         {% endif %}
 
         {% include page-pagination.html %}
