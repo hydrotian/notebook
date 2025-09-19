@@ -67,11 +67,18 @@ bundle exec jekyll build       # Build for production
 - **Interactive content**: `interactive/` directory
 - **Images**: `images/` directory
 
+## Comment Administration
+
+- **Admin access**: Click "Admin" button on any post, enter password `simhydro2025`
+- **Delete comments**: × buttons appear in admin mode
+- **Change password**: Edit `_includes/simple-comments.html`, line with `ADMIN_PASSWORD`
+- **Firebase console**: https://console.firebase.google.com/ (project: notebook-comments)
+
 ## Configuration
 
 - **Theme**: So Simple (mmistakes/so-simple-theme)
 - **Markdown**: Kramdown processor
 - **Math**: MathJax enabled
-- **Comments**: Giscus (GitHub Discussions)
+- **Comments**: Anonymous, shared, immediate posting with admin moderation (Firebase)
 - **Search**: Full content search
 - **Features**: Reading time, SEO tags, RSS feed, pagination

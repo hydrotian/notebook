@@ -26,12 +26,9 @@ date_format: "%B %-d, %Y"
 read_time: true # reading time estimates, e.g. true
 words_per_minute: 200 # 200
 mathjax: true # MathJax equations, e.g. true
-# Comments via Giscus (GitHub Discussions)
-giscus:
-  repo: "hydrotian/notebook"
-  repo_id: "MDEwOlJlcG9zaXRvcnkxMjQ2MzUwNDk="  # Replace with your actual repo ID
-  category: "Announcements"
-  category_id: "DIC_kwDOB23Hqc4CvqAZ"  # Replace with your actual category ID
+# Comments via Firebase (anonymous, shared, immediate)
+comments:
+  provider: firebase
 
 # Build settings
 markdown: kramdown
