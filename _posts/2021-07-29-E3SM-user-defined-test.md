@@ -14,10 +14,15 @@ Before merging a Pull Request to master, the model integrators need to perform a
 - First create a branch off master then switch to that branch
 - Say we want to do a testing suite called "e3sm_land_developer", the next step is to create baseline cases based on the master code:
 
-  - in `cime/scripts` directory, do `./create_test e3sm_land_developer --baseline-root /path/to/baseline/case/dir -b 07e202a -t 07e202a --project E3SM --walltime 00:30:00 -g -v -j 4`
+  - in `cime/scripts` directory, do 
+  ```
+  ./create_test e3sm_land_developer --baseline-root /path/to/baseline/case/dir -b 07e202a -t 07e202a --project E3SM --walltime 00:30:00 -g -v -j 4
+  ```
   - here `07e202a` is the hashtag for the master
 - Then make changes to the code, commit it, and do another set of test for comparison
-  - `./create_test e3sm_land_developer --baseline-root /path/to/baseline/case/dir -b 07e202a -t 6ebc21d --project E3SM --walltime 00:30:00 -c -v -j 4`
+  ```
+  ./create_test e3sm_land_developer --baseline-root /path/to/baseline/case/dir -b 07e202a -t 6ebc21d --project E3SM --walltime 00:30:00 -c -v -j 4
+  ```
   - here `6ebc21d` is the hashtag for the new commit
   - note in the command line the `-g` is changed to `-c`, indicating this is a comparison test
 - The test runs will generate a number of new folders in the scratch directory for the simulation results. Wait until the tests are completed, then go to the scratch directory, you will find a new file is generated. In this case, it should be `cs.status.6ebc21d`. Execute this file, you will see the comparison report showing if the tests are passed or failed. Here is an example for a passed test:
@@ -75,3 +80,12 @@ Then this configuration with new features is available for testing. Simply go to
 The last part of the command `.elm-bgc_features` indicates this is a "testmod" type of test.
 
 If you want to make it official, just add this line to the top of the `tests.py` in `.../E3SM/cime_config`. So that in the future everyone will need to pass this test for their new developments.
+
+### Single PEM test
+By defination, a PEM test is a b4b test for different PE layouts. But sometimes the test would crash if you only provide a test name such as `ne4pg2_ne4pg2.I1850CNPRDCTCBCTOP` as the machine may not have a working PE configuration. So a good practice is to leverage an exsisting testing layout.
+
+Here's an example for Chrysalis:
+```
+./create_test PEM.ne30pg2_r05_IcoswISC30E3r5.WCYCL1850.chrysalis_intel --pesfile /gpfs/fs1/home/e3smtest/jenkins/workspace/ACME_chrysalis_next/E3SM_test_scripts/../E3SM/cime_config/testmods_dirs/config_pes_tests.xml
+```
+
