@@ -3,7 +3,7 @@
 A personal blog focused on computational hydrology, sharing research insights, technical solutions, and scientific discoveries.
 
 ## 🌐 Live Site
-**[simhydro.com/notebook](https://simhydro.com/notebook)**
+**[notebook.simhydro.com](https://notebook.simhydro.com)**
 
 ## 📝 Content Focus
 This notebook serves as a repository for:

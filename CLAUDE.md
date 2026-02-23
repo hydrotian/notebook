@@ -4,7 +4,7 @@
 
 Tian's Notebook - A Jekyll-powered blog about computational hydrology hosted on GitHub Pages using the So Simple theme.
 
-- **URL**: https://simhydro.com/notebook
+- **URL**: https://notebook.simhydro.com
 - **Author**: Tian (hydro.tian@gmail.com, @tianzhou, @hydrotian)
 
 ## Project Structure
