@@ -1,0 +1,257 @@
+/* ==========================================================================
+   Dark mode overrides — auto-switches based on system preference
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+
+  /* Base elements */
+  body {
+    color: #c9d1d9;
+    background: #0d1117;
+    border-top-color: #161b22;
+  }
+
+  a {
+    color: #58a6ff;
+
+    &:hover {
+      color: #79b8ff;
+    }
+  }
+
+  blockquote {
+    background-color: #161b22;
+    border-left-color: #58a6ff;
+    color: #c9d1d9;
+  }
+
+  /* Site-wide */
+  .site-title a {
+    color: #c9d1d9;
+  }
+
+  .copyright,
+  .copyright a {
+    color: #8b949e;
+  }
+
+  .taxonomy-title {
+    color: #8b949e;
+  }
+
+  .taxonomy-count {
+    color: #8b949e;
+  }
+
+  .taxonomy-index a {
+    border-bottom-color: #30363d;
+
+    &:hover {
+      color: #58a6ff;
+    }
+  }
+
+  .taxonomy-section:not(:last-child) {
+    border-bottom-color: #30363d;
+  }
+
+  .back-to-top {
+    color: #8b949e;
+  }
+
+  /* Navigation */
+  .site-nav {
+    ul {
+      color: #c9d1d9;
+      background-color: #161b22;
+    }
+
+    a {
+      color: #c9d1d9;
+      border-color: #161b22;
+
+      &:hover {
+        border-color: #c9d1d9;
+      }
+    }
+  }
+
+  #menu-toggle {
+    color: #c9d1d9;
+    background-color: #161b22;
+  }
+
+  .site-footer {
+    border-top-color: #30363d;
+  }
+
+  .footnotes {
+    border-top-color: #30363d;
+  }
+
+  .site-logo-img {
+    border-color: #0d1117;
+  }
+
+  /* TOC */
+  .toc-wrapper {
+    border-color: #30363d;
+
+    h2 {
+      color: #c9d1d9;
+      background-color: #161b22;
+    }
+
+    li ol {
+      background-color: #0d1117;
+    }
+
+    li a:hover,
+    li a:focus {
+      border-bottom: 1px dotted #30363d;
+    }
+  }
+
+  #markdown-toc {
+    color: #c9d1d9;
+  }
+
+  /* Pagination */
+  .pagination li a {
+    color: #8b949e;
+    border-color: #30363d;
+
+    &.current,
+    &.current.disabled {
+      background-color: #8b949e;
+      color: #0d1117;
+    }
+
+    &.disabled {
+      color: #30363d;
+    }
+  }
+
+  .search-input {
+    border-color: #30363d;
+    background-color: #161b22;
+    color: #c9d1d9;
+  }
+
+  /* Page navigation */
+  .page-previous,
+  .page-next {
+    color: #c9d1d9;
+  }
+
+  /* Entries */
+  .entry a:hover {
+    color: #58a6ff;
+  }
+
+  /* Tables */
+  th,
+  td {
+    border-bottom-color: #30363d;
+  }
+
+  /* Notices */
+  .notice {
+    background-color: #161b22;
+    color: #c9d1d9;
+  }
+
+  /* Buttons - inverse */
+  .btn--inverse {
+    background-color: #21262d;
+    color: #c9d1d9;
+    border: 1px solid #30363d;
+  }
+
+  /* Code & Syntax highlighting (dark theme) */
+  code.highlighter-rouge {
+    color: #c9d1d9;
+    background-color: #161b22;
+  }
+
+  div.highlighter-rouge,
+  figure.highlight {
+    color: #c9d1d9;
+    background-color: #161b22;
+  }
+
+  .highlight table td.gutter {
+    color: #484f58;
+    border-right-color: #484f58;
+  }
+
+  .highlight .hll { background-color: #2d333b; }
+  .highlight .c,
+  .highlight .cm,
+  .highlight .cp,
+  .highlight .c1,
+  .highlight .cs   { color: #8b949e; }
+  .highlight .err  { color: #f85149; }
+  .highlight .k,
+  .highlight .kc,
+  .highlight .kd,
+  .highlight .kp,
+  .highlight .kr   { color: #d2a8ff; }
+  .highlight .kn   { color: #79c0ff; }
+  .highlight .kt   { color: #e3b341; }
+  .highlight .l,
+  .highlight .m,
+  .highlight .mf,
+  .highlight .mh,
+  .highlight .mi,
+  .highlight .mo,
+  .highlight .il   { color: #f0883e; }
+  .highlight .s,
+  .highlight .sb,
+  .highlight .sh,
+  .highlight .si,
+  .highlight .sx,
+  .highlight .sr,
+  .highlight .s1,
+  .highlight .s2,
+  .highlight .ss,
+  .highlight .ld,
+  .highlight .gi   { color: #a5d6ff; }
+  .highlight .sd   { color: #8b949e; }
+  .highlight .se   { color: #f0883e; }
+  .highlight .n,
+  .highlight .p,
+  .highlight .nb,
+  .highlight .ni,
+  .highlight .nl,
+  .highlight .py,
+  .highlight .w,
+  .highlight .bp,
+  .highlight .sc   { color: #c9d1d9; }
+  .highlight .na,
+  .highlight .nf,
+  .highlight .nx   { color: #79c0ff; }
+  .highlight .nc,
+  .highlight .nn   { color: #e3b341; }
+  .highlight .no,
+  .highlight .ne,
+  .highlight .nv,
+  .highlight .vc,
+  .highlight .vg,
+  .highlight .vi,
+  .highlight .gd   { color: #f85149; }
+  .highlight .nd,
+  .highlight .nt,
+  .highlight .o,
+  .highlight .ow,
+  .highlight .gu   { color: #56d4dd; }
+  .highlight .gh,
+  .highlight .gp,
+  .highlight .ge,
+  .highlight .gs   { color: #c9d1d9; }
+
+  /* Images - slightly reduce brightness */
+  img {
+    opacity: 0.9;
+  }
+}
