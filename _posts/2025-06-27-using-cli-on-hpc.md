@@ -59,13 +59,13 @@ exec "$NODE_EXEC_PATH" --no-warnings --enable-source-maps "$CLAUDE_SCRIPT_PATH" 
 ```
 - Then add an alias to `.bashrc` file: `alias claude='$HOME/bin/claude-exec'`.
 
-- The authentication process is the same and since this time Claude Code was installed by `npm` (not `npx` for Gemini CLI), you don't need to install it again.
+- The authentication process is the same. Since Claude Code was installed permanently via `npm` (unlike Gemini CLI which uses `npx` and re-installs each time), you only need to install it once.
 
 - There's a good [tool bar](https://github.com/leeguooooo/claude-code-usage-bar) to help you lively tracking how much you spent on Claude Code. I used [tmux](https://github.com/tmux/tmux/wiki) to show it at the bottom of my terminal.
 
 ### Additional notes about using PNNL's Claude API
 
-PNNL's [AI Incubator's API Key Depot](https://ai-incubator-depot.pnnl.gov/) provides a range of APIs for different models including GPT-5, Claude Opus 4.6, Sonnet 4.5, Grok 4, and more. To call these APIs for Claude Code, just simply update the `~/.claude/settings.json` to include the API (either $50 birthright API or project API) and the model name you want to use:
+Instead of using Claude Code or Gemini CLI as a paid subscriber, PNNL's [AI Incubator's API Key Depot](https://ai-incubator-depot.pnnl.gov/) provides a range of APIs for different models including GPT-5, Claude Opus 4.6, Sonnet 4.5, Grok 4, and more for staff to use. To call these APIs for Claude Code, just simply update the `~/.claude/settings.json` to include the API (either $50 birthright API or project API) and the model name you want to use:
  ```bash
  {
   "env": {
@@ -85,3 +85,7 @@ PNNL's [AI Incubator's API Key Depot](https://ai-incubator-depot.pnnl.gov/) prov
 ```
 Then when you fire the Claude code from the terminal, you can see what model you are using and you are using PNNL's API for the session.
 ![Claude Code session using PNNL API](/images/claude-code-pnnl-api.png)
+
+### Additional notes about using Codex through PNNL's ChatGPT Enterprise subscription
+
+In Feb. 2026, the White House issued [an order](https://truthsocial.com/@realDonaldTrump/posts/116144552969293195) to ban Anthropic's service from all federal agencies. While we are still allowing using Claude Code here in PNNL as of today (3/31/2026), some labs (e.g. LANL, SNL) have already received orders to stop using their products. As a mitigation plan, I purchased ChatGPT Enterprise through PNNL's APP store. It is very straightforward to install it on HPC and local machine following their [online tutorial](https://developers.openai.com/codex/cli). Simply activate it as a paid subscriber, and you can use Codex as an alternative to Claude Code.
