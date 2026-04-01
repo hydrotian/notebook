@@ -1,6 +1,7 @@
-/* ==========================================================================
-   Dark mode overrides — auto-switches based on system preference
-   ========================================================================== */
+---
+# Standalone dark mode stylesheet — loaded after the skin so overrides take effect
+sitemap: false
+---
 
 @media (prefers-color-scheme: dark) {
 
