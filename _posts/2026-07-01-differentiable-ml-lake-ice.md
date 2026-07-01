@@ -26,7 +26,7 @@ The word means one concrete thing: the model is built entirely from operations w
 
 ### Why the nonlinearity matters (physics + NN)
 
-If the world were linear, none of this would be necessary — you could fit a single global slope. The reason we need a *nonlinear* closure (the NN) wrapped in *nonlinear* physics (the $\sqrt{FDD}$ law) is that the real dependencies are curved and interacting: snow's effect on ice growth is not a constant offset, it *modulates the rate* at which cold air grows ice. The deeper questions below show concretely that this interaction — multiplicative, not additive — is exactly why the physics and the network must be trained jointly rather than in sequence.
+If the world were linear, none of this would be necessary — you could fit a single global slope. The reason we need a *nonlinear* closure (the NN) wrapped in *nonlinear* physics (the $$\sqrt{FDD}$$ law) is that the real dependencies are curved and interacting: snow's effect on ice growth is not a constant offset, it *modulates the rate* at which cold air grows ice. The deeper questions below show concretely that this interaction — multiplicative, not additive — is exactly why the physics and the network must be trained jointly rather than in sequence.
 
 ### The physics anchor used throughout
 
@@ -37,10 +37,10 @@ $$h = \alpha \sqrt{FDD}$$
 | symbol | meaning | units |
 |---|---|---|
 | `h` | ice thickness | cm |
-| $FDD$ | accumulated freezing-degree-days (the cold forcing) | °C·day |
-| $\alpha$ | Stefan coefficient — lumps snow, wind, water heat flux | cm · (°C·day)^(−1/2) |
+| $$FDD$$ | accumulated freezing-degree-days (the cold forcing) | °C·day |
+| $$\alpha$$ | Stefan coefficient — lumps snow, wind, water heat flux | cm · (°C·day)^(−1/2) |
 
-$\sqrt{FDD}$ is the trusted **physics component**. $\alpha$ is the **closure** — a fixed constant in Example 1, a single calibrated parameter in Example 2, and a learned function $\alpha(\text{snow})$ in Example 3.
+$$\sqrt{FDD}$$ is the trusted **physics component**. $$\alpha$$ is the **closure** — a fixed constant in Example 1, a single calibrated parameter in Example 2, and a learned function $$\alpha(\text{snow})$$ in Example 3.
 
 ## Example 1 — Autodiff sanity check (no learning yet)
 
@@ -49,9 +49,9 @@ Before I trust an autodiff engine to train anything, I want to see it reproduce 
 | | |
 |---|---|
 | **Problem** | Confirm the autodiff engine reproduces the exact textbook derivative of Stefan's law. |
-| **Known** | $\alpha$ = 3.0 (fixed constant); $FDD$ swept 1→400. |
+| **Known** | $$\alpha$$ = 3.0 (fixed constant); $$FDD$$ swept 1→400. |
 | **Unknown** | *Nothing.* This is a differentiation-engine unit test. |
-| **Goal** | Verify $\partial h/\partial FDD$ from `.backward()` equals the calculus answer $\alpha/(2\sqrt{FDD})$. |
+| **Goal** | Verify $$\partial h/\partial FDD$$ from `.backward()` equals the calculus answer $$\alpha/(2\sqrt{FDD})$$. |
 | **What diffML is doing** | Nothing yet — establishing that the gradient engine is trustworthy before we rely on it. |
 
 ```python
@@ -64,7 +64,7 @@ analytic = alpha_true / (2*torch.sqrt(FDD))
 
 **Result — autodiff equals calculus to floating-point precision:**
 
-| $FDD$ | $\partial h/\partial FDD$ autodiff | $\alpha/(2\sqrt{FDD})$ calculus |
+| $$FDD$$ | $$\partial h/\partial FDD$$ autodiff | $$\alpha/(2\sqrt{FDD})$$ calculus |
 |---|---|---|
 | 1 | 1.500000 | 1.500000 |
 | 100 | 0.150569 | 0.150000 |
@@ -73,27 +73,27 @@ Maximum absolute error across all 200 points: **5.96e-08**. Autodiff *is* the ch
 
 ![Example 1: autodiff gradient overlaid on the analytic derivative curve](/images/diffml-lake-ice/fig1.png)
 
-**Figure 1.** *Autodiff sanity check. The gradient $\partial h/\partial FDD$ returned by `.backward()` (markers) lies exactly on the analytic curve $\alpha/(2\sqrt{FDD})$ (line) across the full $FDD$ sweep. Maximum absolute error over all 200 points is 5.96e-08 — autodiff executes the chain rule exactly, not as a finite-difference approximation.*
+**Figure 1.** *Autodiff sanity check. The gradient $$\partial h/\partial FDD$$ returned by `.backward()` (markers) lies exactly on the analytic curve $$\alpha/(2\sqrt{FDD})$$ (line) across the full $$FDD$$ sweep. Maximum absolute error over all 200 points is 5.96e-08 — autodiff executes the chain rule exactly, not as a finite-difference approximation.*
 
 ## Example 2 — One-parameter calibration by gradient descent
 
-Now the first bit of actual learning. Nothing changes about the physics — I just stop pretending I know $\alpha$ and let gradient descent find it from noisy data. This is calibration, the thing hydrologists already do with SCE-UA all day; the only twist is that the gradient tells me which way to step.
+Now the first bit of actual learning. Nothing changes about the physics — I just stop pretending I know $$\alpha$$ and let gradient descent find it from noisy data. This is calibration, the thing hydrologists already do with SCE-UA all day; the only twist is that the gradient tells me which way to step.
 
 | | |
 |---|---|
-| **Problem** | Recover the single best $\alpha$ from noisy ice-thickness observations. |
-| **Known** | $FDD_{obs}$ and noisy $h_{obs}$ — the data (same "known input" role $FDD$ played in Ex. 1). |
-| **Unknown** | $\alpha$ — promoted from fixed constant to a trainable parameter (`requires_grad=True`). |
-| **Goal** | Minimize mean-squared error between $\alpha\sqrt{FDD}$ and $h_{obs}$. |
-| **What diffML is doing** | Using $\partial \text{Loss}/\partial \alpha$ to walk $\alpha$ downhill — the same job SCE-UA does in calibration, but gradient-guided instead of population-search. |
+| **Problem** | Recover the single best $$\alpha$$ from noisy ice-thickness observations. |
+| **Known** | $$FDD_{obs}$$ and noisy $$h_{obs}$$ — the data (same "known input" role $$FDD$$ played in Ex. 1). |
+| **Unknown** | $$\alpha$$ — promoted from fixed constant to a trainable parameter (`requires_grad=True`). |
+| **Goal** | Minimize mean-squared error between $$\alpha\sqrt{FDD}$$ and $$h_{obs}$$. |
+| **What diffML is doing** | Using $$\partial \text{Loss}/\partial \alpha$$ to walk $$\alpha$$ downhill — the same job SCE-UA does in calibration, but gradient-guided instead of population-search. |
 
-The only thing that changed from Example 1 is $\alpha$'s status: **known constant → unknown to be found.** The computation graph is $\alpha \;\to\; \text{pred} = \alpha\sqrt{FDD} \;\to\; \text{diff} = \text{pred}-h_{obs} \;\to\; \text{sq} = \text{diff}^2 \;\to\; \text{loss} = \text{mean}(\text{sq})$.
+The only thing that changed from Example 1 is $$\alpha$$'s status: **known constant → unknown to be found.** The computation graph is $$\alpha \;\to\; \text{pred} = \alpha\sqrt{FDD} \;\to\; \text{diff} = \text{pred}-h_{obs} \;\to\; \text{sq} = \text{diff}^2 \;\to\; \text{loss} = \text{mean}(\text{sq})$$.
 
-### The forward pass, in numbers (starting guess $\alpha$ = 1.0)
+### The forward pass, in numbers (starting guess $$\alpha$$ = 1.0)
 
 First four of the 30 data points:
 
-| $FDD$ | $\sqrt{FDD}$ | pred = $\alpha\sqrt{FDD}$ | $h_{obs}$ | diff | sq = diff² |
+| $$FDD$$ | $$\sqrt{FDD}$$ | pred = $$\alpha\sqrt{FDD}$$ | $$h_{obs}$$ | diff | sq = diff² |
 |---|---|---|---|---|---|
 | 20.0 | 4.472 | 4.472 | 11.728 | -7.256 | 52.64 |
 | 32.4 | 5.693 | 5.693 | 15.351 | -9.658 | 93.28 |
@@ -104,7 +104,7 @@ Summing all 30 squared residuals gives **23988.48**, so loss = 23988.48 / 30 = *
 
 ![Example 2 forward pass: prediction undershooting the observations](/images/diffml-lake-ice/fig2.png)
 
-**Figure 2.** *Example 2 forward pass at the starting guess $\alpha$ = 1.0. The prediction line $\alpha\sqrt{FDD}$ sits well below the noisy observations; vertical segments mark the residuals $\text{pred} - h_{obs}$ whose squares sum to 23988.48, giving the initial loss of 799.6161. The systematic undershoot is what the negative gradient will correct.*
+**Figure 2.** *Example 2 forward pass at the starting guess $$\alpha$$ = 1.0. The prediction line $$\alpha\sqrt{FDD}$$ sits well below the noisy observations; vertical segments mark the residuals $$\text{pred} - h_{obs}$$ whose squares sum to 23988.48, giving the initial loss of 799.6161. The systematic undershoot is what the negative gradient will correct.*
 
 ### The backward pass, derived by hand
 
@@ -112,48 +112,48 @@ Walk the four links of the chain rule, each verified against PyTorch's retained 
 
 | link | local derivative |
 |---|---|
-| $\partial \text{loss}/\partial \text{sq}$ | `1/N` |
-| $\partial \text{sq}/\partial \text{diff}$ | `2·diff` |
-| $\partial \text{diff}/\partial \text{pred}$ | `1` |
-| $\partial \text{pred}/\partial \alpha$ | $\sqrt{FDD}$ |
+| $$\partial \text{loss}/\partial \text{sq}$$ | `1/N` |
+| $$\partial \text{sq}/\partial \text{diff}$$ | `2·diff` |
+| $$\partial \text{diff}/\partial \text{pred}$$ | `1` |
+| $$\partial \text{pred}/\partial \alpha$$ | $$\sqrt{FDD}$$ |
 
 Multiplying and summing across all points collapses to the closed form:
 
 $$\frac{\partial Loss}{\partial \alpha} = \frac{2}{N}\sum_i \sqrt{FDD_i}\,\bigl(\alpha\sqrt{FDD_i} - h_i\bigr)$$
 
-At $\alpha$ = 1.0 this evaluates to:
+At $$\alpha$$ = 1.0 this evaluates to:
 
 | | value |
 |---|---|
-| $\partial \text{Loss}/\partial \alpha$ — autograd (`.backward()`) | **-798.8566** |
-| $\partial \text{Loss}/\partial \alpha$ — closed form (by hand) | **-798.8566** |
+| $$\partial \text{Loss}/\partial \alpha$$ — autograd (`.backward()`) | **-798.8566** |
+| $$\partial \text{Loss}/\partial \alpha$$ — closed form (by hand) | **-798.8566** |
 
-Identical. The negative sign says "$\alpha$ is too small — increase it," which is correct (true $\alpha$ = 3.0).
+Identical. The negative sign says "$$\alpha$$ is too small — increase it," which is correct (true $$\alpha$$ = 3.0).
 
 ### Direction and step size
 
-- **Direction** = the *sign* of the gradient. Scanning $\alpha$ = 1,2,3,4,5, the gradient flips sign exactly at the true $\alpha$ = 3.0 — that zero-crossing *is* the minimum.
-- **Step size** in plain SGD is literally `lr·grad`, so it shrinks naturally as the gradient flattens near the minimum. The Adam optimizer used here instead normalizes the step by a running RMS of the gradient ($m̂/√v̂$), which is why one fixed `lr=0.1` works across a ~1000× range of gradient magnitudes over the run, and why $\alpha$ overshoots to ~3.26 near step 35 (momentum) before settling. Final recovered value: **$\alpha$ = 2.9971** (true 3.0).
+- **Direction** = the *sign* of the gradient. Scanning $$\alpha$$ = 1,2,3,4,5, the gradient flips sign exactly at the true $$\alpha$$ = 3.0 — that zero-crossing *is* the minimum.
+- **Step size** in plain SGD is literally `lr·grad`, so it shrinks naturally as the gradient flattens near the minimum. The Adam optimizer used here instead normalizes the step by a running RMS of the gradient ($$m̂/√v̂$$), which is why one fixed `lr=0.1` works across a ~1000× range of gradient magnitudes over the run, and why $$\alpha$$ overshoots to ~3.26 near step 35 (momentum) before settling. Final recovered value: **$$\alpha$$ = 2.9971** (true 3.0).
 
 ![Example 2 calibration: alpha trace converging to 3.0](/images/diffml-lake-ice/fig3.png)
 
-**Figure 3.** *One-parameter calibration by gradient descent. Left: the $\alpha$ trajectory over 200 Adam steps, climbing from 1.0, overshooting to ~3.26 near step 35 (momentum), then settling at the recovered value 2.9971 (true $\alpha$ = 3.0, dashed). Right: the fitted Stefan curve through the observations at the converged $\alpha$.*
+**Figure 3.** *One-parameter calibration by gradient descent. Left: the $$\alpha$$ trajectory over 200 Adam steps, climbing from 1.0, overshooting to ~3.26 near step 35 (momentum), then settling at the recovered value 2.9971 (true $$\alpha$$ = 3.0, dashed). Right: the fitted Stefan curve through the observations at the converged $$\alpha$$.*
 
 > **Calibration note:** for a *single* scalar like this, derivative-free global search (SCE-UA, DDS) converges about as well as gradient descent and is arguably more robust (global vs. local). Differentiability's advantage only becomes decisive when the number of parameters grows — which is exactly Example 3's regime, and is quantified in the "three ways to train" section below.
 
 ## Example 3 — Hybrid ML: a network learns an unknown closure inside fixed physics
 
-This is the one that made the whole idea click for me. Here $\alpha$ isn't a constant anymore — it depends on snow cover through a rule I deliberately hide from the model. The network never sees $\alpha$ at all, only noisy ice thickness, and it has to recover the closure by working *through* the physics I keep fixed. If that works, it's the toy version of exactly what I want to do in MOSART.
+This is the one that made the whole idea click for me. Here $$\alpha$$ isn't a constant anymore — it depends on snow cover through a rule I deliberately hide from the model. The network never sees $$\alpha$$ at all, only noisy ice thickness, and it has to recover the closure by working *through* the physics I keep fixed. If that works, it's the toy version of exactly what I want to do in MOSART.
 
 | | |
 |---|---|
-| **Problem** | $\alpha$ is not constant — it depends on snow cover. We do **not** know the form $\alpha(\text{snow})$. Learn it while keeping $\sqrt{FDD}$ physics fixed. |
-| **Known to the model** | `snow` (fed into the NN) and $FDD$ (kept in the fixed physics term). |
-| **Hidden** | The rule $\alpha = 3.5 - 1.8\cdot\text{snow}$ is *never shown* to the network. $\alpha$ itself appears nowhere in the data — only noisy $h_{data}$ does. |
-| **Goal** | Recover $\alpha(\text{snow})$ purely from residual structure in $h_{data}$, trusting the physics. |
-| **What diffML is doing** | Gradients flow from the loss, *through the fixed physics*, *into the NN weights* — the network discovers $\alpha(\text{snow})$ jointly with how it interacts with $FDD$. |
+| **Problem** | $$\alpha$$ is not constant — it depends on snow cover. We do **not** know the form $$\alpha(\text{snow})$$. Learn it while keeping $$\sqrt{FDD}$$ physics fixed. |
+| **Known to the model** | `snow` (fed into the NN) and $$FDD$$ (kept in the fixed physics term). |
+| **Hidden** | The rule $$\alpha = 3.5 - 1.8\cdot\text{snow}$$ is *never shown* to the network. $$\alpha$$ itself appears nowhere in the data — only noisy $$h_{data}$$ does. |
+| **Goal** | Recover $$\alpha(\text{snow})$$ purely from residual structure in $$h_{data}$$, trusting the physics. |
+| **What diffML is doing** | Gradients flow from the loss, *through the fixed physics*, *into the NN weights* — the network discovers $$\alpha(\text{snow})$$ jointly with how it interacts with $$FDD$$. |
 
-**Architecture:** $\text{snow} \;\to\; \text{Linear}(1,16) \;\to\; \text{Tanh} \;\to\; \text{Linear}(16,16) \;\to\; \text{Tanh} \;\to\; \text{Linear}(16,1) \;\to\; \text{Softplus} \;\to\; \alpha$. The `Tanh` layers provide expressiveness (the "neural-network basics" section below explains why they are essential); the final `Softplus` forces $\alpha$ > 0, since a negative Stefan coefficient is unphysical. The network has **321 learnable parameters**.
+**Architecture:** $$\text{snow} \;\to\; \text{Linear}(1,16) \;\to\; \text{Tanh} \;\to\; \text{Linear}(16,16) \;\to\; \text{Tanh} \;\to\; \text{Linear}(16,1) \;\to\; \text{Softplus} \;\to\; \alpha$$. The `Tanh` layers provide expressiveness (the "neural-network basics" section below explains why they are essential); the final `Softplus` forces $$\alpha$$ > 0, since a negative Stefan coefficient is unphysical. The network has **321 learnable parameters**.
 
 ```python
 alpha_pred = net(snow_d[:, None]).squeeze(1)   # NN: snow -> alpha
@@ -164,7 +164,7 @@ loss.backward()                                  # gradient: loss -> physics -> 
 
 **Result — the network recovers the hidden rule to within ~0.01 across the whole snow range:**
 
-| snow | $\alpha$ true = 3.5 − 1.8·snow | $\alpha$ recovered (NN) | error |
+| snow | $$\alpha$$ true = 3.5 − 1.8·snow | $$\alpha$$ recovered (NN) | error |
 |---|---|---|---|
 | 0.00 | 3.500 | 3.511 | +0.011 |
 | 0.25 | 3.050 | 3.037 | -0.013 |
@@ -176,7 +176,7 @@ Overall fit RMSE = **1.624 cm**, essentially the noise floor (1.5 cm). The netwo
 
 ![Example 3: NN-recovered alpha(snow) overlaying the hidden truth line](/images/diffml-lake-ice/fig4.png)
 
-**Figure 4.** *Hybrid ML recovering an unknown closure. Left: the network's learned $\alpha(\text{snow})$ (curve) overlays the hidden truth $\alpha = 3.5 - 1.8\cdot\text{snow}$ (dashed) to within ~0.01 everywhere, despite $\alpha$ never appearing in the training data. Right: predicted vs. observed ice thickness, RMSE 1.624 cm — essentially the 1.5 cm noise floor.*
+**Figure 4.** *Hybrid ML recovering an unknown closure. Left: the network's learned $$\alpha(\text{snow})$$ (curve) overlays the hidden truth $$\alpha = 3.5 - 1.8\cdot\text{snow}$$ (dashed) to within ~0.01 everywhere, despite $$\alpha$$ never appearing in the training data. Right: predicted vs. observed ice thickness, RMSE 1.624 cm — essentially the 1.5 cm noise floor.*
 
 ## Deeper questions I kept poking at
 
@@ -184,23 +184,23 @@ The three examples above are the clean story. But every time I thought I underst
 
 ### 3a. Why not split it? Run the physics first, then a separate residual network
 
-This was my first instinct, and it's probably yours too: since snow isn't part of the physics component, why bother training jointly? Why not (1) run the physics component once with a fixed average $\alpha_0$, (2) compute $\text{residual} = h_{data} - \alpha_0\sqrt{FDD}$, and (3) train a separate network NN(snow) to fit that residual? I had Claude build exactly that and compare:
+This was my first instinct, and it's probably yours too: since snow isn't part of the physics component, why bother training jointly? Why not (1) run the physics component once with a fixed average $$\alpha_0$$, (2) compute $$\text{residual} = h_{data} - \alpha_0\sqrt{FDD}$$, and (3) train a separate network NN(snow) to fit that residual? I had Claude build exactly that and compare:
 
 | approach | RMSE (cm) |
 |---|---|
 | Noise floor (irreducible) | 1.50 |
-| **Stage-wise**: fixed $\alpha_0$ = 2.6, additive NN(snow) → residual | **2.66** |
-| **End-to-end**: NN(snow) → $\alpha$, multiplies $\sqrt{FDD}$ | **1.62** |
+| **Stage-wise**: fixed $$\alpha_0$$ = 2.6, additive NN(snow) → residual | **2.66** |
+| **End-to-end**: NN(snow) → $$\alpha$$, multiplies $$\sqrt{FDD}$$ | **1.62** |
 
-The stage-wise split leaves nearly double the residual error. **The reason is that the true process is multiplicative** — $\alpha$ *multiplies* $\sqrt{FDD}$ — not additive. When you fix $\alpha_0$ and subtract, the leftover residual is *not* a clean function of snow alone: it still carries an $FDD$-shaped error, because $\alpha_0$ is wrong by a different amount at every snow value. Holding snow fixed near 0 (where $\alpha_0$ = 2.6 is most wrong) and looking at how that residual varies with $FDD$:
+The stage-wise split leaves nearly double the residual error. **The reason is that the true process is multiplicative** — $$\alpha$$ *multiplies* $$\sqrt{FDD}$$ — not additive. When you fix $$\alpha_0$$ and subtract, the leftover residual is *not* a clean function of snow alone: it still carries an $$FDD$$-shaped error, because $$\alpha_0$$ is wrong by a different amount at every snow value. Holding snow fixed near 0 (where $$\alpha_0$$ = 2.6 is most wrong) and looking at how that residual varies with $$FDD$$:
 
 ![Stage-wise split: leftover residual still trends strongly with FDD](/images/diffml-lake-ice/fig5.png)
 
-**Figure 5.** *Why a stage-wise split loses accuracy. Left: within a narrow low-snow band, the residual left by a fixed $\alpha_0$ = 2.6 still trends strongly with $FDD$ (r ≈ 0.89) — structure a snow-only stage-2 network cannot see. Right: RMSE comparison — end-to-end (1.62 cm) nearly reaches the noise floor (1.50 cm), while the additive stage-wise split stalls at 2.66 cm because the true interaction is multiplicative.*
+**Figure 5.** *Why a stage-wise split loses accuracy. Left: within a narrow low-snow band, the residual left by a fixed $$\alpha_0$$ = 2.6 still trends strongly with $$FDD$$ (r ≈ 0.89) — structure a snow-only stage-2 network cannot see. Right: RMSE comparison — end-to-end (1.62 cm) nearly reaches the noise floor (1.50 cm), while the additive stage-wise split stalls at 2.66 cm because the true interaction is multiplicative.*
 
-Within that narrow snow band the residual correlates strongly with $FDD$ (r ≈ 0.89) — but the stage-2 network is fed **only snow**, so it structurally cannot see or correct that $FDD$-dependent trend. It is forced to collapse to a per-snow average, discarding the spread. That discarded spread *is* the gap between 1.62 and 2.66 cm.
+Within that narrow snow band the residual correlates strongly with $$FDD$$ (r ≈ 0.89) — but the stage-2 network is fed **only snow**, so it structurally cannot see or correct that $$FDD$$-dependent trend. It is forced to collapse to a per-snow average, discarding the spread. That discarded spread *is* the gap between 1.62 and 2.66 cm.
 
-**The general principle:** a stage-wise split is safe only when the unknown closure enters *additively and independently* of the physics — $h = physics(FDD) + f(\text{snow})$. The moment the closure *interacts* with the physics (multiplication, thresholds), a fixed split point bakes in an error that no amount of stage-2 retraining can undo, because stage 2 never sees the variable it would need. Real ice closures (frazil formation, snow insulation, under-ice heat flux) interact multiplicatively with the physics-component state, so this is the rule rather than the exception — which is the substantive reason to want genuine end-to-end differentiability rather than a sequential physics-then-patch design.
+**The general principle:** a stage-wise split is safe only when the unknown closure enters *additively and independently* of the physics — $$h = physics(FDD) + f(\text{snow})$$. The moment the closure *interacts* with the physics (multiplication, thresholds), a fixed split point bakes in an error that no amount of stage-2 retraining can undo, because stage 2 never sees the variable it would need. Real ice closures (frazil formation, snow insulation, under-ice heat flux) interact multiplicatively with the physics-component state, so this is the rule rather than the exception — which is the substantive reason to want genuine end-to-end differentiability rather than a sequential physics-then-patch design.
 
 ### 3b. Neural-network basics: what the layers actually are
 
@@ -209,11 +209,11 @@ The architecture `Linear, Tanh, Linear, Softplus` is built from a small standard
 - **`Linear(m, n)`** — the *only* piece with learnable weights: `output = W·input + b`. You choose how many and how wide (the `16`s in Example 3 are a capacity choice, not a fixed rule).
 - **Activation functions** (`Tanh`, `Softplus`, `ReLU`, `Sigmoid`, …) — fixed, hand-picked nonlinear functions with **no learnable parameters**. The menu is genuinely short; picking among them is largely convention.
 
-**Why the activations are load-bearing:** stacking `Linear` layers with nothing between them collapses to a *single* `Linear` layer — I checked, and three stacked linear layers equal one collapsed matrix product to floating-point noise (max difference 1.5e-08). Matrix products compose into one matrix. The `Tanh` nonlinearities are what stop the collapse and give the network the ability to represent *curved* relationships like `3.5 − 1.8·snow`. The final `Softplus` serves a different purpose: keeping the output physically valid ($\alpha$ > 0).
+**Why the activations are load-bearing:** stacking `Linear` layers with nothing between them collapses to a *single* `Linear` layer — I checked, and three stacked linear layers equal one collapsed matrix product to floating-point noise (max difference 1.5e-08). Matrix products compose into one matrix. The `Tanh` nonlinearities are what stop the collapse and give the network the ability to represent *curved* relationships like `3.5 − 1.8·snow`. The final `Softplus` serves a different purpose: keeping the output physically valid ($$\alpha$$ > 0).
 
 ### 3c. Three ways to train the same network — and what is *actually* required
 
-There are two different things loosely called "gradient": (1) the **per-weight gradient** $\partial \text{Loss}/\partial weight$ that training needs, and (2) the **inter-layer gradients** that the chain rule produces as intermediate scratch values. Only #1 is fundamentally required — and even that only if you choose a gradient-based method. To convince myself, I trained the identical closure three ways:
+There are two different things loosely called "gradient": (1) the **per-weight gradient** $$\partial \text{Loss}/\partial weight$$ that training needs, and (2) the **inter-layer gradients** that the chain rule produces as intermediate scratch values. Only #1 is fundamentally required — and even that only if you choose a gradient-based method. To convince myself, I trained the identical closure three ways:
 
 | method | uses inter-layer gradients? | uses per-weight gradient? | final loss |
 |---|---|---|---|
@@ -254,17 +254,17 @@ AddmmBackward0       <- inside the NN: 1st Linear layer
 AccumulateGrad ×4    <- the leaf weight/bias tensors (what Adam updates)
 ```
 
-Every layer of the "black box" appears as its own node. The **seam** between physics and network — the link $\partial h_{pred}/\partial \alpha = \sqrt{FDD}$ — is not a place where tracing stops or restarts; it is just one more link in an unbroken chain that autograd walks identically on both sides.
+Every layer of the "black box" appears as its own node. The **seam** between physics and network — the link $$\partial h_{pred}/\partial \alpha = \sqrt{FDD}$$ — is not a place where tracing stops or restarts; it is just one more link in an unbroken chain that autograd walks identically on both sides.
 
 ![The physics-NN seam as one unbroken chain, forward and backward](/images/diffml-lake-ice/fig7.png)
 
-**Figure 7.** *The physics↔NN seam as one unbroken chain. Forward pass runs left-to-right (snow → NN → $\alpha$ → ×$\sqrt{FDD}$ → $h_{pred}$ → loss); the backward pass runs right-to-left with the local derivative labeled on every link. The seam $\partial h_{pred}/\partial \alpha = \sqrt{FDD}$ is just one more link — autograd walks the NN side identically to the physics side.*
+**Figure 7.** *The physics↔NN seam as one unbroken chain. Forward pass runs left-to-right (snow → NN → $$\alpha$$ → ×$$\sqrt{FDD}$$ → $$h_{pred}$$ → loss); the backward pass runs right-to-left with the local derivative labeled on every link. The seam $$\partial h_{pred}/\partial \alpha = \sqrt{FDD}$$ is just one more link — autograd walks the NN side identically to the physics side.*
 
 ![PyTorch's real autograd graph, walked node-by-node](/images/diffml-lake-ice/fig8.png)
 
 **Figure 8.** *PyTorch's actual recorded computation graph for the Example-3 loss, walked node-by-node from `MeanBackward0` down to the four `AccumulateGrad` leaf tensors. Every internal NN layer (Softplus, the two Linear/Addmm layers, Tanh) appears as its own node — proof that `.backward()` traverses inside the network rather than stopping at its boundary.*
 
-I confirmed the numbers too: on a tiny 3-point, 2-hidden-unit version, every gradient computed by hand (chain rule) matched autograd to 5+ significant figures — including the gradient *crossing the seam* ($\partial \text{Loss}/\partial \alpha$) and the deepest weight gradients ($\partial \text{Loss}/\partial W1$, $\partial \text{Loss}/\partial b2$ = -191.22). The "black box" framing is true only in the sense that *you don't have to write the calculus yourself* — computationally, autograd has full-depth visibility into every weight.
+I confirmed the numbers too: on a tiny 3-point, 2-hidden-unit version, every gradient computed by hand (chain rule) matched autograd to 5+ significant figures — including the gradient *crossing the seam* ($$\partial \text{Loss}/\partial \alpha$$) and the deepest weight gradients ($$\partial \text{Loss}/\partial W1$$, $$\partial \text{Loss}/\partial b2$$ = -191.22). The "black box" framing is true only in the sense that *you don't have to write the calculus yourself* — computationally, autograd has full-depth visibility into every weight.
 
 **Why this matters:** end-to-end training is *possible only because* autograd treats physics operations and NN-layer operations as the same kind of thing — nodes in one graph, each contributing a local derivative. If the network really were opaque to gradients, you would be forced back into the stage-wise split of Section 3a, with the information loss that entails.
 
@@ -272,7 +272,7 @@ I confirmed the numbers too: on a tiny 3-point, 2-hidden-unit version, every gra
 
 None of this is my invention — the Example-3 pattern (**trusted differentiable physics + learnable closures, trained end-to-end**) is the organizing idea behind a fast-growing body of Earth-system work. Here are the landmarks I keep coming back to, mapped onto the toy version above:
 
-- **NeuralGCM** (Kochkov et al., *Nature*, 2024) — a differentiable atmospheric general-circulation model. A conventional dynamical core (solving the fluid-dynamics equations for large-scale flow) is coupled to neural networks that learn the *unresolved sub-grid physics* — convection, clouds, radiation — the very closures that are hand-tuned in traditional GCMs. Trained end-to-end against reanalysis, it matches or beats conventional models on medium-range and climate timescales at far lower cost. This is Example 3 at planetary scale: $\sqrt{FDD}$ → the fluid dynamical core; $\alpha(\text{snow})$ → the learned convection/cloud closures.
+- **NeuralGCM** (Kochkov et al., *Nature*, 2024) — a differentiable atmospheric general-circulation model. A conventional dynamical core (solving the fluid-dynamics equations for large-scale flow) is coupled to neural networks that learn the *unresolved sub-grid physics* — convection, clouds, radiation — the very closures that are hand-tuned in traditional GCMs. Trained end-to-end against reanalysis, it matches or beats conventional models on medium-range and climate timescales at far lower cost. This is Example 3 at planetary scale: $$\sqrt{FDD}$$ → the fluid dynamical core; $$\alpha(\text{snow})$$ → the learned convection/cloud closures.
 - **Differentiable hydrology (δHBV, HBV-type + NN; Feng, Shen and colleagues)** — the closest analog to my MOSART goal. A differentiable conceptual rainfall–runoff model keeps the mass-balance structure (buckets, routing) as the physics component and learns its parameters as *functions of static catchment attributes* via an embedded network — trained across many basins simultaneously (regional / "big-data" calibration). This is precisely the staged, regionalized calibration strategy that motivates differentiability over per-basin SCE: you are learning a *parameter field over attribute space*, which has far too many effective degrees of freedom for population search.
 - **Process-guided / hybrid lake models** — deep-learning lake-temperature and ice models that embed energy conservation or known thermodynamic constraints as physics terms alongside learned components, improving generalization to unmonitored lakes. Directly adjacent to the lake-ice framing of this document.
 - **My MOSART river/lake-ice application** — the concrete target. Stefan-type ice growth (and the fuller River1D-style heat/frazil/border-ice process set) is the differentiable physics component; the empirical closures (Stefan coefficient as a function of snow and other attributes, frazil and border-ice rules, composite roughness) become learnable functions, calibrated regionally across many basins against observed ice thickness, breakup timing, and discharge. Section 3a is the warning label: because those closures interact *multiplicatively and through thresholds* with the physics-component state (discharge, water temperature, ice concentration), a sequential physics-then-ML-patch design will leave recoverable error on the table — the reason to build it end-to-end from the start. Hard on/off rules (Froude-number gates, under-cover cutoffs) must be smoothed (sigmoid/softplus) before gradients can flow through them — the one genuine engineering caveat carried over from the River1D reading.
@@ -296,7 +296,7 @@ I kept the toy examples deliberately small so every gradient stays traceable by 
 1. **Reichstein, M., Camps-Valls, G., Stevens, B., *et al.* (2019).** Deep learning and process understanding for data-driven Earth system science. *Nature* **566**, 195–204. [doi:10.1038/s41586-019-0912-1](https://doi.org/10.1038/s41586-019-0912-1) — the early, widely-cited vision paper arguing for hybrid physics-ML approaches across Earth system science generally, before "differentiable modeling" was the standard term for it.
 2. **Karniadakis, G. E., Kevrekidis, I. G., Lu, L., Perdikaris, P., Wang, S., & Yang, L. (2021).** Physics-informed machine learning. *Nature Reviews Physics* **3**, 422–440. [doi:10.1038/s42254-021-00314-5](https://doi.org/10.1038/s42254-021-00314-5) — the general framework for embedding physical constraints into ML models, from a computational-physics rather than Earth-science angle. Useful for the broader taxonomy of ways physics and networks can be combined, of which Example 3 above is one particular pattern.
 3. **Willard, J., Jia, X., Xu, S., Steinbach, M., & Kumar, V. (2022).** Integrating scientific knowledge with machine learning for engineering and environmental systems. *ACM Computing Surveys* **55**(4), Article 66. [doi:10.1145/3514228](https://doi.org/10.1145/3514228) — a broad survey cataloging the different ways physics-based and ML models get combined (this is where the "stage-wise vs. end-to-end" distinction in Section 3a above sits within a larger taxonomy).
-4. **Shen, C., Appling, A. P., Gentine, P., *et al.* (2023).** Differentiable modelling to unify machine learning and physical models for geosciences. *Nature Reviews Earth & Environment* **4**(8), 552–567. [doi:10.1038/s43017-023-00450-9](https://doi.org/10.1038/s43017-023-00450-9) — the conceptual overview specific to "differentiable modeling" as used throughout this post. Defines it as connecting a flexible amount of prior physical knowledge to neural networks and training the whole chain by gradient descent — precisely the $\alpha(\text{snow})$ setup in Example 3, generalized.
+4. **Shen, C., Appling, A. P., Gentine, P., *et al.* (2023).** Differentiable modelling to unify machine learning and physical models for geosciences. *Nature Reviews Earth & Environment* **4**(8), 552–567. [doi:10.1038/s43017-023-00450-9](https://doi.org/10.1038/s43017-023-00450-9) — the conceptual overview specific to "differentiable modeling" as used throughout this post. Defines it as connecting a flexible amount of prior physical knowledge to neural networks and training the whole chain by gradient descent — precisely the $$\alpha(\text{snow})$$ setup in Example 3, generalized.
 5. **Kochkov, D., Yuval, J., Langmore, I., *et al.* (2024).** Neural general circulation models for weather and climate. *Nature* **632**(8027), 1060–1066. [doi:10.1038/s41586-024-07744-y](https://doi.org/10.1038/s41586-024-07744-y) — NeuralGCM: a differentiable dynamical core coupled to learned sub-grid closures, trained end-to-end. The clearest large-scale demonstration that differentiability through a physics solver enables stable, accurate online training — the argument this tutorial makes in miniature with Stefan's law.
 6. **Feng, D., Liu, J., Lawson, K., & Shen, C. (2022).** Differentiable, learnable, regionalized process-based models with multiphysical outputs can approach state-of-the-art hydrologic prediction accuracy. *Water Resources Research* **58**(10), e2022WR032404. [doi:10.1029/2022WR032404](https://doi.org/10.1029/2022WR032404) — the δHBV model: the closest hydrologic analogue to the MOSART goal. A neural network maps static catchment attributes to the parameters of a process-based rainfall-runoff model (HBV), regionalized across many basins and trained on streamflow — exactly the "parameters as functions of static attributes" strategy planned for the river-ice closures.
 7. **Feng, D., Beck, H., Lawson, K., & Shen, C. (2023).** The suitability of differentiable, physics-informed machine learning hydrologic models for ungauged regions and climate change impact assessment. *Hydrology and Earth System Sciences* **27**(12), 2357–2373. [doi:10.5194/hess-27-2357-2023](https://doi.org/10.5194/hess-27-2357-2023) — the follow-up that tests δ models where they matter most for this project: ungauged basins and out-of-sample (warming) climate. Directly relevant to regionalizing an ice scheme to basins with little or no observed ice-thickness data.
